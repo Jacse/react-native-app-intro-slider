@@ -1,0 +1,26 @@
+{
+  "name": "react-native-app-intro-slider",
+  "version": "0.1.1",
+  "description": "simple and configurable onboarding for react native apps",
+  "main": "AppIntroSlider.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacse/react-native-app-intro-slider.git"
+  },
+  "keywords": [
+    "swiper",
+    "App",
+    "Intro",
+    "ios",
+    "android",
+    "react-component",
+    "react-native",
+    "slider"
+  ],
+  "author": "Jacob Lauritzen <jacsebl@hotmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacse/react-native-app-intro-slider/issues"
+  },
+  "homepage": "https://github.com/jacse/react-native-app-intro-slider"
+}
