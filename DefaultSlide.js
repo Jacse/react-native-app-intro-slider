@@ -10,41 +10,23 @@ import {
 
 const { width, height } = Dimensions.get('window');
 
-const isIphoneX = (
-  Platform.OS === 'ios' &&
-  !Platform.isPad &&
-  !Platform.isTVOS &&
-  (height === 812 || width === 812)
-);
-
-
 export default class DefaultSlide extends React.PureComponent {
   render() {
     return (
-      <View style={[styles.flexOne, {
-        backgroundColor: this.props.backgroundColor,
-        width: this.props.width,
-        height: this.props.height,
-      }]}>
-        <View style={styles.iPhoneXTopSpacer} />
+      <View style={{ flex: 1, backgroundColor: this.props.backgroundColor }}>
+        <View style={{ height: this.props.topSpacer }} />
         <View style={styles.mainContent}>
           <Text style={styles.title}>{this.props.title}</Text>
           <Image source={this.props.image} style={this.props.imageStyle} />
           <Text style={styles.text}>{this.props.text}</Text>
         </View>
-        <View style={styles.bottomSpacer} />
+        <View style={{ height: this.props.bottomSpacer }} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  iPhoneXTopSpacer: {
-    height: isIphoneX ? 44 : Platform.OS === 'ios' ? 20 : 0,
-  },
-  bottomSpacer: {
-    height: 32 + 18 + 32 + (isIphoneX ? 34 : 0),
-  },
   mainContent: {
     flex: 1,
     justifyContent: 'space-around',

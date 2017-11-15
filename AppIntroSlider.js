@@ -34,58 +34,54 @@ export default class AppIntroSlider extends React.Component {
     };
   }
 
-  goToPage = (pageNum) => {
+  goToSlide = (pageNum) => {
     this.setState({ activeIndex: pageNum });
     this.flatList.scrollToOffset({ offset: pageNum * this.state.width });
   }
 
   _renderItem = (item) => {
     const { width, height } = this.state;
-    if (this.props.renderItem) {
-      return this.props.renderItem(item, { width, height });
-    }
+    const bottomSpacer = (this.props.bottomButton ? 44 : 0) + (isIphoneX ? 98 : 64);
+    const topSpacer = (isIphoneX ? 44 : 0) + (Platform.OS === 'ios' ? 20 : 0);
+    const props = { ...item.item, bottomSpacer, topSpacer };
     return (
-      <DefaultSlide
-        width={width}
-        height={height}
-        {...item.item}
-      />
+      <View style={{ height, width }}>
+        {this.props.renderItem ? this.props.renderItem(props) : (
+          <DefaultSlide {...props}/>
+        )}
+      </View>
     );
   }
 
+  _renderButton = (content, onPress) => {
+    return (
+      <View style={this.props.bottomButton ? styles.bottomButtonContainer : styles.buttonContainer}>
+        <TouchableOpacity onPress={onPress} style={this.props.bottomButton  && {flex: 1}}>
+          {content}
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   _onNext = () => {
-    if (typeof this.props.onNext === 'function') {
-      return this.props.onNext();
-    }
-    this.goToPage(this.state.activeIndex + 1);
+    this.props.onNext === 'function' && this.props.onNext();
+    this.goToSlide(this.state.activeIndex + 1);
   }
 
   _renderNextButton = () => {
-    const hasFunc = typeof this.props.renderNextButton === 'function';
-    return (
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={this._onNext}>
-          { hasFunc ? this.props.renderNextButton() : <Text style={styles.buttonText}>Next</Text>}
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  _onDone = () => {
-    if (typeof this.props.onDone === 'function') {
-      return this.props.onDone();
+    let content = this.props.renderNextButton ? this.props.renderNextButton() : <Text style={styles.buttonText}>Next</Text>;
+    if (this.props.bottomButton) {
+      content = <View style={styles.bottomButton}>{content}</View>;
     }
+    return this._renderButton(content, this._onNext);
   }
 
   _renderDoneButton = () => {
-    const hasFunc = typeof this.props.renderDoneButton === 'function';
-    return (
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={this._onDone}>
-        { hasFunc ? this.props.renderDoneButton() : <Text style={styles.buttonText}>Done</Text>}
-        </TouchableOpacity>
-      </View>
-    )
+    let content = this.props.renderDoneButton ? this.props.renderDoneButton() : <Text style={styles.buttonText}>Done</Text>;
+    if (this.props.bottomButton) {
+      content = <View style={styles.bottomButton}>{content}</View>;
+    }
+    return this._renderButton(content, this.props.onDone && this.props.onDone);
   }
 
   _renderPagination = () => {
@@ -106,14 +102,19 @@ export default class AppIntroSlider extends React.Component {
       ]} />
     );
 
+    const btn = this.state.activeIndex < (this.props.slides.length - 1 ) ? this._renderNextButton() : this._renderDoneButton();
+
     return (
-      <View style={[styles.pagination, this.props.paginationStyle]}>
-        {this.props.slides.map((_, i) => (
-          i === this.state.activeIndex
-            ? React.cloneElement(ActiveDot, { key: i })
-            : React.cloneElement(Dot, { key: i })
-        ))}
-        {this.state.activeIndex < (this.props.slides.length - 1 ) ? this._renderNextButton() : this._renderDoneButton()}
+      <View style={styles.paginationContainer}>
+        <View style={[styles.paginationDots, this.props.paginationStyle]}>
+          {this.props.slides.map((_, i) => (
+            i === this.state.activeIndex
+              ? React.cloneElement(ActiveDot, { key: i })
+              : React.cloneElement(Dot, { key: i })
+          ))}
+          {!this.props.bottomButton && btn}
+        </View>
+        {this.props.bottomButton && btn}
       </View>
     )
   }
@@ -146,6 +147,7 @@ export default class AppIntroSlider extends React.Component {
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
+          bounces={false}
           style={styles.flexOne}
           renderItem={this._renderItem}
           onMomentumScrollEnd={this._onMomentumScrollEnd}
@@ -160,12 +162,15 @@ const styles = StyleSheet.create({
   flexOne: {
     flex: 1,
   },
-  pagination: {
+  paginationContainer: {
     position: 'absolute',
-    bottom: isIphoneX ? 34 : 0,
+    bottom: 16 + (isIphoneX ? 34 : 0),
     left: 0,
     right: 0,
-    height: 32 + 18 + 32,
+  },
+  paginationDots: {
+    height: 16,
+    margin: 16,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -174,11 +179,21 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    margin: 4, // total height = 18
+    marginHorizontal: 4,
   },
   buttonContainer: {
     position: 'absolute',
-    right: 32,
+    right: 0,
+  },
+  bottomButtonContainer: {
+    height: 44,
+    marginHorizontal: 16,
+  },
+  bottomButton: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, .3)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     backgroundColor: 'transparent',
