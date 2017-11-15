@@ -262,9 +262,9 @@ dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pa
 activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
 renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
 renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
-renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. Use if you want complete control over slide rendering. The function is passed the slide object as wells as { topSpacer: Number, bottomSpacer: Number }. These show the "safe-space" where other UI is not interfering.
+renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
 
-## slides object
+## slide object
 Each slide object should contain at least a unique `key`. If you use the default layouts your object should furthermore contain:
 
 Name             | Type                | Note           
@@ -272,7 +272,8 @@ Name             | Type                | Note
 title            | `string`            | The title
 text             | `string`            | Main text of slide
 image            | `Image`-source prop | Slide image
-backgroundColor  | `string`            | slide backgroundcolor
+imageStyle       | `Style`-prop        | Styling for the image (e.g. size)
+backgroundColor  | `string`            | Slide background color
 
 If you use a custom `renderItem`-method you can design your slide objects as you see fit.
 

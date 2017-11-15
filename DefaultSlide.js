@@ -8,8 +8,6 @@ import {
   Platform,
 } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
-
 export default class DefaultSlide extends React.PureComponent {
   render() {
     return (
