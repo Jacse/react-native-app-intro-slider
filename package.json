@@ -1,7 +1,7 @@
 {
   "name": "react-native-app-intro-slider",
-  "version": "0.1.1",
-  "description": "simple and configurable onboarding for react native apps",
+  "version": "0.1.2",
+  "description": "simple and configurable app introduction slider for react native",
   "main": "AppIntroSlider.js",
   "repository": {
     "type": "git",

@@ -11,9 +11,9 @@
 
 ## Features
 
-- :white_check_mark: Supports the newest version of React Native
-- :white_check_mark: Android and iOS (and iPhone X!)
-- :white_check_mark: iPhone X-ready
+:white_check_mark: Supports the newest version of React Native
+:white_check_mark: Android and iOS (and iPhone X!)
+:white_check_mark: iPhone X-ready
 
 ## Installation
 
@@ -285,5 +285,11 @@ backgroundColor  | `string`            | Slide background color
 
 If you use a custom `renderItem`-method you can design your slide objects as you see fit.
 
-## TODO
-* Test Android
+## Run example
+
+```
+git clone https://github.com/Jacse/react-native-app-intro-slider.git
+cd react-native-app-intro-slider/Example
+yarn
+yarn start
+```
