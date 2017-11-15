@@ -2,10 +2,18 @@
 
 `react-native-app-intro-slider` is an easy-to-use but very configurable app introduction slider/swiper. Use it to onboard your users on first launch.
 
+## Showcase
+
+| | |
+|-|-|
+![Button example gif](Images/button-example.gif) | ![Custom layout example gif](Images/custom-example.gif)
+
+
 ## Features
 
-1. Supports the newest version of React Native
-2. Supports both Android and iOS (and iPhone X!)
+- [x] Supports the newest version of React Native
+- [x] Android and iOS (and iPhone X!)
+- [x] iPhone X-ready
 
 ## Installation
 
@@ -276,9 +284,6 @@ imageStyle       | `Style`-prop        | Styling for the image (e.g. size)
 backgroundColor  | `string`            | Slide background color
 
 If you use a custom `renderItem`-method you can design your slide objects as you see fit.
-
-## Running example app
-
 
 ## TODO
 * Test Android
