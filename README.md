@@ -26,7 +26,7 @@ or using `yarn`:
 
 ### Basic example
 
-![Basic example gif](images/basic-example.gif)
+![Basic example gif](Images/basic-example.gif)
 
 Basic example with no configuration:
 
@@ -86,7 +86,7 @@ export default class App extends React.Component {
 
 ### Configuring buttons
 
-![Button example gif](images/button-example.gif)
+![Button example gif](Images/button-example.gif)
 
 Basic example with buttons configured:
 
@@ -150,7 +150,7 @@ export default class App extends React.Component {
 
 ## Custom slide layout
 
-![Custom layout example gif](images/custom-example.gif)
+![Custom layout example gif](Images/custom-example.gif)
 
 Here a custom `renderItem` is supplied. Notice how the setup of `slides` has been configured too.
 
