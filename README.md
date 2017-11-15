@@ -11,21 +11,21 @@
 
 ## Features
 
-- [x] Supports the newest version of React Native
-- [x] Android and iOS (and iPhone X!)
-- [x] iPhone X-ready
+- :white_check_mark: Supports the newest version of React Native
+- :white_check_mark: Android and iOS (and iPhone X!)
+- :white_check_mark: iPhone X-ready
 
 ## Installation
 
 Install library from `npm`:
 
-    ```bash
+    ```
     npm install react-native-app-intro-slider --save
     ```
 
 or using `yarn`:
 
-    ```bash
+    ```
     yarn add react-native-app-intro-slider
     ```
   
