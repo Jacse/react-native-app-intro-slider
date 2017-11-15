@@ -2,6 +2,8 @@
 
 `react-native-app-intro-slider` is an easy-to-use but very configurable app introduction slider/swiper. Use it to onboard your users on first launch.
 
+**NOTE:** It is quite recent so it has not yet been released to `npm`. For now please install using `npm install https://github.com/jacse/react-native-app-intro-slider.git` and let me know if it works for you! After a little positive feedback I'll publish to npm.
+
 ## Showcase
 
 | | |
@@ -11,23 +13,20 @@
 
 ## Features
 
-:white_check_mark: Supports the newest version of React Native
-:white_check_mark: Android and iOS (and iPhone X!)
-:white_check_mark: iPhone X-ready
+* :white_check_mark: Supports the newest version of React Native
+* :white_check_mark: Android and iOS
+* :white_check_mark: iPhone X-ready
+* :white_check_mark: Option to use a large button under dots too
 
 ## Installation
 
 Install library from `npm`:
 
-    ```
     npm install react-native-app-intro-slider --save
-    ```
 
 or using `yarn`:
 
-    ```
     yarn add react-native-app-intro-slider
-    ```
   
 
 ## Usage
