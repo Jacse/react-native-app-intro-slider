@@ -41,7 +41,7 @@ export default class AppIntroSlider extends React.Component {
 
   _renderItem = (item) => {
     const { width, height } = this.state;
-    const bottomSpacer = (this.props.bottomButton ? 44 : 0) + (isIphoneX ? 98 : 64);
+    const bottomSpacer = (this.props.bottomButton ? 44 : 0) + (isIphoneX ? 34: 0) + 80;
     const topSpacer = (isIphoneX ? 44 : 0) + (Platform.OS === 'ios' ? 20 : 0);
     const props = { ...item.item, bottomSpacer, topSpacer };
     return (

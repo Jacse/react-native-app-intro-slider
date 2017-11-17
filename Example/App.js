@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   mainContent: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 64,
     justifyContent: 'space-around',
   },
   image: {
@@ -57,19 +56,18 @@ const slides = [
 export default class App extends React.Component {
   _renderItem = props => (
     <LinearGradient
-      style={{ flex: 1 }}
+      style={[styles.mainContent, {
+        paddingTop: props.topSpacer,
+        paddingBottom: props.bottomSpacer,
+      }]}
       colors={props.colors}
       start={{x: 0, y: .1}} end={{x: .1, y: 1}}
     >
-      <View style={{ height: props.topSpacer }} />
-      <View style={styles.mainContent}>
-        <Ionicons style={{ backgroundColor: 'transparent' }} name={props.icon} size={200} color="white" />
-        <View>
-          <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.text}>{props.text}</Text>
-        </View>
+      <Ionicons style={{ backgroundColor: 'transparent' }} name={props.icon} size={200} color="white" />
+      <View>
+        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.text}>{props.text}</Text>
       </View>
-      <View style={{ height: props.bottomSpacer }} />
     </LinearGradient>
   );
 

@@ -10,15 +10,16 @@ import {
 
 export default class DefaultSlide extends React.PureComponent {
   render() {
+    const style = {
+      backgroundColor: this.props.backgroundColor,
+      paddingTop: this.props.topSpacer,
+      paddingBottom: this.props.bottomSpacer,
+    }
     return (
-      <View style={{ flex: 1, backgroundColor: this.props.backgroundColor }}>
-        <View style={{ height: this.props.topSpacer }} />
-        <View style={styles.mainContent}>
-          <Text style={styles.title}>{this.props.title}</Text>
-          <Image source={this.props.image} style={this.props.imageStyle} />
-          <Text style={styles.text}>{this.props.text}</Text>
-        </View>
-        <View style={{ height: this.props.bottomSpacer }} />
+      <View style={[styles.mainContent, style]}>
+        <Text style={styles.title}>{this.props.title}</Text>
+        <Image source={this.props.image} style={this.props.imageStyle} />
+        <Text style={styles.text}>{this.props.text}</Text>
       </View>
     );
   }
