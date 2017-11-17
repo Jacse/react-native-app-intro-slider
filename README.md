@@ -147,6 +147,8 @@ export default class App extends React.Component {
     return (
       <AppIntroSlider
         slides={slides}
+        renderDoneButton={this._renderDoneButton}
+        renderNextButton={this._renderNextButton}
       />
     );
   }
@@ -167,13 +169,6 @@ import { LinearGradient } from 'expo';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
 const styles = StyleSheet.create({
-  button: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, .2)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
   mainContent: {
     flex: 1,
     alignItems: 'center',
