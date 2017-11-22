@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   Platform,
+  StatusBar,
 } from 'react-native';
 import DefaultSlide from './DefaultSlide';
 
@@ -23,26 +24,30 @@ export default class AppIntroSlider extends React.Component {
   static defaultProps = {
     activeDotColor: 'rgba(255, 255, 255, .9)',
     dotColor: 'rgba(0, 0, 0, .2)',
+    skipLabel: 'Skip',
+    doneLabel: 'Done',
+    nextLabel: 'Next',
   }
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      width,
-      height,
-      activeIndex: 0,
-    };
-  }
+  state = {
+    width,
+    height,
+    activeIndex: 0,
+  };
 
   goToSlide = (pageNum) => {
     this.setState({ activeIndex: pageNum });
     this.flatList.scrollToOffset({ offset: pageNum * this.state.width });
   }
 
+  _onNextPress = () => {
+    this.goToSlide(this.state.activeIndex + 1);
+    this.props.onSlideChange && this.props.onSlideChange(this.state.activeIndex + 1, this.state.activeIndex);
+  }
+
   _renderItem = (item) => {
     const { width, height } = this.state;
-    const bottomSpacer = (this.props.bottomButton ? 44 : 0) + (isIphoneX ? 34: 0) + 80;
-    const topSpacer = (isIphoneX ? 44 : 0) + (Platform.OS === 'ios' ? 20 : 0);
+    const bottomSpacer = (this.props.bottomButton ? (this.props.showSkipButton ? 44 : 0) + 44 : 0) + (isIphoneX ? 34: 0) + 64;
+    const topSpacer = (isIphoneX ? 44 : 0) + (Platform.OS === 'ios' ? 20 : StatusBar.currentHeight);
     const props = { ...item.item, bottomSpacer, topSpacer };
     return (
       <View style={{ height, width }}>
@@ -53,68 +58,62 @@ export default class AppIntroSlider extends React.Component {
     );
   }
 
-  _renderButton = (content, onPress) => {
+  _renderButton = (content, onPress, isSkip) => {
+    if (isSkip && !this.props.bottomButton && this.state.activeIndex == this.props.slides.length - 1) {
+      return null;
+    }
+    let style = isSkip ? styles.leftButtonContainer : styles.rightButtonContainer;
+    if (this.props.bottomButton) {
+      content = <View style={[styles.bottomButton, isSkip && { backgroundColor: 'transparent' }]}>{content}</View>;
+      style = styles.bottomButtonContainer;
+    }
     return (
-      <View style={this.props.bottomButton ? styles.bottomButtonContainer : styles.buttonContainer}>
-        <TouchableOpacity onPress={onPress} style={this.props.bottomButton  && {flex: 1}}>
+      <View style={style}>
+        <TouchableOpacity onPress={onPress} style={this.props.bottomButton && styles.flexOne}>
           {content}
         </TouchableOpacity>
       </View>
     )
   }
 
-  _onNextPress = () => {
-    this.goToSlide(this.state.activeIndex + 1);
-    this.props.onSlideChange && this.props.onSlideChange(this.state.activeIndex + 1, this.state.activeIndex);
-  }
-
   _renderNextButton = () => {
-    let content = this.props.renderNextButton ? this.props.renderNextButton() : <Text style={styles.buttonText}>Next</Text>;
-    if (this.props.bottomButton) {
-      content = <View style={styles.bottomButton}>{content}</View>;
-    }
+    let content = this.props.renderNextButton ? this.props.renderNextButton() : <Text style={styles.buttonText}>{this.props.nextLabel}</Text>;
     return this._renderButton(content, this._onNextPress);
   }
 
   _renderDoneButton = () => {
-    let content = this.props.renderDoneButton ? this.props.renderDoneButton() : <Text style={styles.buttonText}>Done</Text>;
-    if (this.props.bottomButton) {
-      content = <View style={styles.bottomButton}>{content}</View>;
-    }
+    let content = this.props.renderDoneButton ? this.props.renderDoneButton() : <Text style={styles.buttonText}>{this.props.doneLabel}</Text>;
     return this._renderButton(content, this.props.onDone && this.props.onDone);
+  }
+
+  _renderSkipButton = () => {
+    let content = this.props.renderSkipButton ? this.props.renderSkipButton() : <Text style={styles.buttonText}>{this.props.skipLabel}</Text>;
+    return this._renderButton(content, this.props.onSkip && this.props.onSkip, true);
   }
 
   _renderPagination = () => {
     if (this.props.slides.length <= 1) return null;
 
-    const ActiveDot = this.props.activeDot || (
-      <View style={[
-        { backgroundColor: this.props.activeDotColor },
-        styles.dot,
-        this.props.activeDotStyle,
-      ]} />
-    );
-    const Dot = this.props.dot || (
-      <View style={[
-        { backgroundColor: this.props.dotColor },
-        styles.dot,
-        this.props.dotStyle,
-      ]} />
-    );
-
-    const btn = this.state.activeIndex < (this.props.slides.length - 1 ) ? this._renderNextButton() : this._renderDoneButton();
+    const skipBtn = this.props.showSkipButton && this._renderSkipButton();
+    const btn = this.state.activeIndex == (this.props.slides.length - 1 ) ? this._renderDoneButton() : this._renderNextButton();
 
     return (
       <View style={styles.paginationContainer}>
-        <View style={[styles.paginationDots, this.props.paginationStyle]}>
+        <View style={styles.paginationDots}>
+          {!this.props.bottomButton && skipBtn}
           {this.props.slides.map((_, i) => (
-            i === this.state.activeIndex
-              ? React.cloneElement(ActiveDot, { key: i })
-              : React.cloneElement(Dot, { key: i })
+            <View
+              key={i}
+              style={[
+                { backgroundColor: i === this.state.activeIndex ? this.props.activeDotColor : this.props.dotColor },
+                styles.dot,
+              ]}
+            />
           ))}
           {!this.props.bottomButton && btn}
         </View>
         {this.props.bottomButton && btn}
+        {this.props.bottomButton && skipBtn}
       </View>
     )
   }
@@ -178,7 +177,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 4,
   },
-  buttonContainer: {
+  leftButtonContainer: {
+    position: 'absolute',
+    left: 0,
+  },
+  rightButtonContainer: {
     position: 'absolute',
     right: 0,
   },
@@ -196,5 +199,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 18,
+    padding: 16,
   }
 });

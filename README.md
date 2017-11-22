@@ -30,8 +30,9 @@ or using `yarn`:
 ## Usage
 
 ### Basic example
-
-![Basic example gif](Images/basic-example.gif)
+| No configuration | `showSkipButton` | `bottomButton` and `shopSkipButton`
+|-|-|-|
+![Basic example gif](Images/basic-example.gif)|![showSkipButton example image](Images/skipbutton-example.jpg)|![bottomButton example image](Images/bottomskipbutton-example.jpg)
 
 Basic example with no configuration:
 
@@ -248,14 +249,23 @@ export default class App extends React.Component {
 ```
 
 
-## Props and options:
+## Props and options
+
+### Configure behavior
 
 Name             | Type       | Default                   | Description
 -----------------|------------|---------------------------|--------------
 slides           | `object`   | No default, required      | An array of [slide-objects](#slide-object)
-bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
+showSkipButton   | `boolean`  | `false`                   | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button
 onSlideChange    | `function` | `void`                    | Called when user goes to next slide. Function called with arguments `index: number, lastIndex: number`
-onDone           | `function` | `void`                    | Called when user ends the introduction be pressing the done button
+onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
+onSkip           | `function` | `void`                    | Called when user presses the skip button
+
+## Configure looks
+
+Name             | Type       | Default                   | Description
+-----------------|------------|---------------------------|--------------
+bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
 dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
 activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
 renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
