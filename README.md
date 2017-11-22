@@ -254,7 +254,7 @@ Name             | Type       | Default                   | Description
 -----------------|------------|---------------------------|--------------
 slides           | `object`   | No default, required      | An array of [slide-objects](#slide-object)
 bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
-onNext           | `function` | `void`                    | Called when user goes to next slid
+onSlideChange    | `function` | `void`                    | Called when user goes to next slide. Function called with arguments `index: number, lastIndex: number`
 onDone           | `function` | `void`                    | Called when user ends the introduction be pressing the done button
 dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
 activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot

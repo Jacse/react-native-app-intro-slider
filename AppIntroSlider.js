@@ -63,9 +63,9 @@ export default class AppIntroSlider extends React.Component {
     )
   }
 
-  _onNext = () => {
-    this.props.onNext === 'function' && this.props.onNext();
+  _onNextPress = () => {
     this.goToSlide(this.state.activeIndex + 1);
+    this.props.onSlideChange && this.props.onSlideChange(this.state.activeIndex + 1, this.state.activeIndex);
   }
 
   _renderNextButton = () => {
@@ -73,7 +73,7 @@ export default class AppIntroSlider extends React.Component {
     if (this.props.bottomButton) {
       content = <View style={styles.bottomButton}>{content}</View>;
     }
-    return this._renderButton(content, this._onNext);
+    return this._renderButton(content, this._onNextPress);
   }
 
   _renderDoneButton = () => {
@@ -130,12 +130,9 @@ export default class AppIntroSlider extends React.Component {
       // No page change, don't do anything
       return;
     }
-    this.setState({
-      activeIndex: newIndex
-    });
-    if (typeof this.props.onSlideChange === 'function') {
-      this.props.onSlideChange(newIndex);
-    }
+    const lastIndex = this.state.activeIndex;
+    this.setState({ activeIndex: newIndex });
+    this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
   }
 
   render() {

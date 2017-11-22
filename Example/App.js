@@ -76,6 +76,7 @@ export default class App extends React.Component {
       <AppIntroSlider
         slides={slides}
         renderItem={this._renderItem}
+        onSlideChange={(a, b) => console.log(`Active slide changed from ${b} to ${a}`)}
         bottomButton
       />
     );
