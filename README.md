@@ -30,7 +30,7 @@ or using `yarn`:
 ## Usage
 
 ### Basic example
-| No configuration | `showSkipButton` | `bottomButton` and `shopSkipButton`
+| No configuration | `showSkipButton` | `bottomButton` and `showSkipButton`
 |-|-|-|
 ![Basic example gif](Images/basic-example.gif)|![showSkipButton example image](Images/skipbutton-example.jpg)|![bottomButton example image](Images/bottomskipbutton-example.jpg)
 

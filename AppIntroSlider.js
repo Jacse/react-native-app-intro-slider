@@ -134,6 +134,23 @@ export default class AppIntroSlider extends React.Component {
     this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
   }
 
+  _getItemLayout = (data, index: number) => ({
+    length: this.state.width,
+    offset: this.state.width * index,
+    index,
+  })
+
+  _onLayout = () => {
+    const { width, height } = Dimensions.get('window');
+    if (width !== this.state.width || height !== this.state.height) {
+      // Set new width to update rendering of pages
+      this.setState({ width, height });
+      // Set new scroll position
+      const func = () => { this.flatList.scrollToOffset({ offset: this.state.activeIndex * width, animated: false }) }
+      Platform.OS === 'android' ? setTimeout(func, 0) : func();
+    }
+  }
+
   render() {
     return (
       <View style={styles.flexOne}>
@@ -147,6 +164,9 @@ export default class AppIntroSlider extends React.Component {
           style={styles.flexOne}
           renderItem={this._renderItem}
           onMomentumScrollEnd={this._onMomentumScrollEnd}
+          extraData={this.state.width}
+          onLayout={this._onLayout}
+          getItemLayout={this._getItemLayout}
         />
         {this._renderPagination()}
       </View>
