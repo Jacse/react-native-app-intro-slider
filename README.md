@@ -11,7 +11,6 @@ npm i react-native-app-intro-slider --save
 ![Button example gif](Images/button-example.gif) | ![Custom layout example gif](Images/custom-example.gif)
 
 ## Table of contents
-  * [Features](#features)
   * [Usage](#usage)
     * [Basic Example](#basic-example)
     * [Configuring Buttons](#configuring-buttons)
@@ -20,14 +19,6 @@ npm i react-native-app-intro-slider --save
     * [Configure behaviour](#configure-behaviour)
     * [Configure looks](#configure-looks)
   * [Example](#example)
-
-## Features
-
-* :white_check_mark: Supports the newest version of React Native
-* :white_check_mark: Android and iOS
-* :white_check_mark: iPhone X-ready
-* :white_check_mark: Option to use a large button under dots too
-  
 
 <h2 align="center">Usage</h2>
 
@@ -283,7 +274,8 @@ renderItem       | `function` | renders `DefaultSlide`    | Function returning a
 
 <h2 align="center">Example</h2>
 You can run the example Expo-app by cloning the repo:
-```
+
+```sh
 git clone https://github.com/Jacse/react-native-app-intro-slider.git
 cd react-native-app-intro-slider/Example
 yarn
