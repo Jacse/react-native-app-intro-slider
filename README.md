@@ -273,7 +273,9 @@ renderDoneButton | `function` | renders a Text-component  | Use to supply your o
 renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
 
 <h2 align="center">Example</h2>
+
 You can run the example Expo-app by cloning the repo:
+
 
 ```sh
 git clone https://github.com/Jacse/react-native-app-intro-slider.git
