@@ -1,13 +1,25 @@
-# react-native-app-intro-slider
+<h1 align="center">react-native-app-intro-slider</h1>
 
-`react-native-app-intro-slider` is an easy-to-use but very configurable app introduction slider/swiper. Use it to onboard your users on first launch.
+<p align="center">Easy-to-use yet very configurable app introduction slider/swiper</p>
 
-## Showcase
+```sh
+npm i react-native-app-intro-slider --save
+```
 
 | | |
 |-|-|
 ![Button example gif](Images/button-example.gif) | ![Custom layout example gif](Images/custom-example.gif)
 
+## Table of contents
+  * [Features](#features)
+  * [Usage](#usage)
+    * [Basic Example](#basic-example)
+    * [Configuring Buttons](#configuring-buttons)
+    * [Custom Slide Layout](#custom-slide-layout)
+  * [Props and options](#props-and-options)
+    * [Configure behaviour](#configure-behaviour)
+    * [Configure looks](#configure-looks)
+  * [Example](#example)
 
 ## Features
 
@@ -15,26 +27,14 @@
 * :white_check_mark: Android and iOS
 * :white_check_mark: iPhone X-ready
 * :white_check_mark: Option to use a large button under dots too
-
-## Installation
-
-Install library from `npm`:
-
-    npm install react-native-app-intro-slider --save
-
-or using `yarn`:
-
-    yarn add react-native-app-intro-slider
   
 
-## Usage
+<h2 align="center">Usage</h2>
 
 ### Basic example
 | No configuration | `showSkipButton` | `bottomButton` and `showSkipButton`
 |-|-|-|
 ![Basic example gif](Images/basic-example.gif)|![showSkipButton example image](Images/skipbutton-example.jpg)|![bottomButton example image](Images/bottomskipbutton-example.jpg)
-
-Basic example with no configuration:
 
 ```javascript
 import React from 'react';
@@ -93,8 +93,6 @@ export default class App extends React.Component {
 ### Configuring buttons
 
 ![Button example gif](Images/button-example.gif)
-
-Basic example with buttons configured:
 
 ```javascript
 import React from 'react';
@@ -156,11 +154,9 @@ export default class App extends React.Component {
 }
 ```
 
-## Custom slide layout
+### Custom slide layout
 
 ![Custom layout example gif](Images/custom-example.gif)
-
-Here a custom `renderItem` is supplied and the `bottomButton`-props has been set to `true`. Notice how the setup of `slides` has been configured to support icons and gradient backgrounds.
 
 ```js
 import React from 'react';
@@ -247,9 +243,9 @@ export default class App extends React.Component {
   }
 }
 ```
+Here a custom `renderItem` is supplied and the `bottomButton`-props has been set to `true`. Notice how the setup of `slides` has been configured to support icons and gradient backgrounds.
 
-
-## Props and options
+<h2 align="center">Props and options</h2>
 
 ### Configure behavior
 
@@ -261,18 +257,7 @@ onSlideChange    | `function` | `void`                    | Called when user goe
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
 onSkip           | `function` | `void`                    | Called when user presses the skip button
 
-## Configure looks
-
-Name             | Type       | Default                   | Description
------------------|------------|---------------------------|--------------
-bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
-dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
-activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
-renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
-renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
-renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
-
-## slide object
+#### slide object
 Each slide object should contain at least a unique `key`. If you use the default layouts your object should furthermore contain:
 
 Name             | Type                | Note           
@@ -285,8 +270,19 @@ backgroundColor  | `string`            | Slide background color
 
 If you use a custom `renderItem`-method you can design your slide objects as you see fit.
 
-## Run example
+### Configure looks
 
+Name             | Type       | Default                   | Description
+-----------------|------------|---------------------------|--------------
+bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
+dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
+activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
+renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
+renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
+renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
+
+<h2 align="center">Example</h2>
+You can run the example Expo-app by cloning the repo:
 ```
 git clone https://github.com/Jacse/react-native-app-intro-slider.git
 cd react-native-app-intro-slider/Example
