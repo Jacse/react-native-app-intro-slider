@@ -248,6 +248,8 @@ onSlideChange    | `function` | `void`                    | Called when user goe
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
 onSkip           | `function` | `void`                    | Called when user presses the skip button
 skipLabel        | `string`   | `Skip`                    | Custom label for Skip button
+doneLabel        | `string`   | `Done`                    | Custom label for Done button
+nextLabel        | `string`   | `Next`                    | Custom label for Next button
 
 #### slide object
 Each slide object should contain at least a unique `key`. If you use the default layouts your object should furthermore contain:
