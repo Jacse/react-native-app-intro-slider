@@ -247,6 +247,7 @@ showSkipButton   | `boolean`  | `false`                   | Enable to show a ski
 onSlideChange    | `function` | `void`                    | Called when user goes to next slide. Function called with arguments `index: number, lastIndex: number`
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
 onSkip           | `function` | `void`                    | Called when user presses the skip button
+skipLabel        | `string`   | `Skip`                    | Custom label for Skip button
 
 #### slide object
 Each slide object should contain at least a unique `key`. If you use the default layouts your object should furthermore contain:
