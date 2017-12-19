@@ -238,6 +238,20 @@ Here a custom `renderItem` is supplied and the `bottomButton`-props has been set
 
 <h2 align="center">Props and options</h2>
 
+### Configure looks
+
+Name             | Type       | Default                   | Description
+-----------------|------------|---------------------------|--------------
+skipLabel        | `string`   | `Skip`                    | Custom label for Skip button
+doneLabel        | `string`   | `Done`                    | Custom label for Done button
+nextLabel        | `string`   | `Next`                    | Custom label for Next button
+bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
+dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
+activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
+renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
+renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
+renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
+
 ### Configure behavior
 
 Name             | Type       | Default                   | Description
@@ -247,9 +261,6 @@ showSkipButton   | `boolean`  | `false`                   | Enable to show a ski
 onSlideChange    | `function` | `void`                    | Called when user goes to next slide. Function called with arguments `index: number, lastIndex: number`
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
 onSkip           | `function` | `void`                    | Called when user presses the skip button
-skipLabel        | `string`   | `Skip`                    | Custom label for Skip button
-doneLabel        | `string`   | `Done`                    | Custom label for Done button
-nextLabel        | `string`   | `Next`                    | Custom label for Next button
 
 #### slide object
 Each slide object should contain at least a unique `key`. If you use the default layouts your object should furthermore contain:
@@ -263,17 +274,6 @@ imageStyle       | `Style`-prop        | Styling for the image (e.g. size)
 backgroundColor  | `string`            | Slide background color
 
 If you use a custom `renderItem`-method you can design your slide objects as you see fit.
-
-### Configure looks
-
-Name             | Type       | Default                   | Description
------------------|------------|---------------------------|--------------
-bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
-dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
-activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
-renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
-renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
-renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
 
 <h2 align="center">Example</h2>
 
