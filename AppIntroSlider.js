@@ -48,14 +48,9 @@ export default class AppIntroSlider extends React.Component {
     const { width, height } = this.state;
     const bottomSpacer = (this.props.bottomButton ? (this.props.showSkipButton ? 44 : 0) + 44 : 0) + (isIphoneX ? 34: 0) + 64;
     const topSpacer = (isIphoneX ? 44 : 0) + (Platform.OS === 'ios' ? 20 : StatusBar.currentHeight);
-    const props = { ...item.item, bottomSpacer, topSpacer };
-    return (
-      <View style={{ height, width }}>
-        {this.props.renderItem ? this.props.renderItem(props) : (
-          <DefaultSlide {...props}/>
-        )}
-      </View>
-    );
+    const props = { ...item.item, bottomSpacer, topSpacer, width, height };
+
+    return this.props.renderItem ? this.props.renderItem(props) : <DefaultSlide {...props} />;
   }
 
   _renderButton = (content, onPress, isSkip) => {

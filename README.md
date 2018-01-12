@@ -211,6 +211,8 @@ export default class App extends React.Component {
       style={[styles.mainContent, {
         paddingTop: props.topSpacer,
         paddingBottom: props.bottomSpacer,
+        width: props.width,
+        height: props.height,
       }]}
       colors={props.colors}
       start={{x: 0, y: .1}} end={{x: .1, y: 1}}

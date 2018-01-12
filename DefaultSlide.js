@@ -14,6 +14,8 @@ export default class DefaultSlide extends React.PureComponent {
       backgroundColor: this.props.backgroundColor,
       paddingTop: this.props.topSpacer,
       paddingBottom: this.props.bottomSpacer,
+      width: this.props.width,
+      height: this.props.height,
     }
     return (
       <View style={[styles.mainContent, style]}>
@@ -27,7 +29,6 @@ export default class DefaultSlide extends React.PureComponent {
 
 const styles = StyleSheet.create({
   mainContent: {
-    flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
