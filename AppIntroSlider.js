@@ -27,6 +27,7 @@ export default class AppIntroSlider extends React.Component {
     skipLabel: 'Skip',
     doneLabel: 'Done',
     nextLabel: 'Next',
+    showDoneButton : true,
   }
   state = {
     width,
@@ -82,8 +83,10 @@ export default class AppIntroSlider extends React.Component {
   }
 
   _renderDoneButton = () => {
-    let content = this.props.renderDoneButton ? this.props.renderDoneButton() : <Text style={styles.buttonText}>{this.props.doneLabel}</Text>;
-    return this._renderButton(content, this.props.onDone && this.props.onDone);
+    if(this.props.showDoneButton){
+      let content = this.props.renderDoneButton ? this.props.renderDoneButton() : <Text style={styles.buttonText}>{this.props.doneLabel}</Text>;
+      return this._renderButton(content, this.props.onDone && this.props.onDone);
+    }
   }
 
   _renderSkipButton = () => {
