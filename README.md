@@ -258,6 +258,7 @@ Name             | Type       | Default                   | Description
 -----------------|------------|---------------------------|--------------
 slides           | `object`   | No default, required      | An array of [slide-objects](#slide-object)
 showSkipButton   | `boolean`  | `false`                   | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button
+showDoneButton   | `boolean`  | `true`                    | Disable to show a done button
 onSlideChange    | `function` | `void`                    | Called when user goes to next slide. Function called with arguments `index: number, lastIndex: number`
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
 onSkip           | `function` | `void`                    | Called when user presses the skip button
