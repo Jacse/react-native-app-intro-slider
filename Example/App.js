@@ -79,6 +79,11 @@ export default class App extends React.Component {
         slides={slides}
         renderItem={this._renderItem}
         bottomButton
+        showPrevButton
+        showSkipButton
+        // hideNextButton
+        // hideDoneButton
+        // onSkip={() => console.log("skipped")}
       />
     );
   }

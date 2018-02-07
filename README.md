@@ -247,10 +247,12 @@ Name             | Type       | Default                   | Description
 skipLabel        | `string`   | `Skip`                    | Custom label for Skip button
 doneLabel        | `string`   | `Done`                    | Custom label for Done button
 nextLabel        | `string`   | `Next`                    | Custom label for Next button
+prevLabel        | `string`   | `Back`                    | Custom label for Prev button
 bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
 dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
 activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
 renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
+renderPrevButton | `function` | renders a Text-component  | Use to supply your own prev button
 renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
 renderSkipButton | `function` | renders a Text-component  | Use to supply your own skip button
 renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
@@ -261,9 +263,10 @@ Name             | Type       | Default                   | Description
 -----------------|------------|---------------------------|--------------
 slides           | `object`   | No default, required      | An array of [slide-objects](#slide-object)
 showSkipButton   | `boolean`  | `false`                   | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button
+showPrevButton   | `boolean`  | `false`                   | Enable to show a previous button. If `showSkipButton` is true, the skip button will be displayed on the first page and prev button on subsequent one
 hideNextButton   | `boolean`  | `false`                   | Enable to hide the next button
 hideDoneButton   | `boolean`  | `false`                   | Enable to hide the done button
-onSlideChange    | `function` | `void`                    | Called when user goes to next slide. Function called with arguments `index: number, lastIndex: number`
+onSlideChange    | `function` | `void`                    | Called when user goes changes slide (by swiping or pressing next/prev). Function called with arguments `index: number, lastIndex: number`
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
 onSkip           | `function` | `void`                    | Called when user presses the skip button
 
