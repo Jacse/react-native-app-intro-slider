@@ -73,12 +73,12 @@ export default class AppIntroSlider extends React.Component {
 
   _renderNextButton = () => {
     let content = this.props.renderNextButton ? this.props.renderNextButton() : <Text style={styles.buttonText}>{this.props.nextLabel}</Text>;
-    return this._renderButton(content, this._onNextPress);
+    return !this.props.hideNextButton && this._renderButton(content, this._onNextPress);
   }
 
   _renderDoneButton = () => {
     let content = this.props.renderDoneButton ? this.props.renderDoneButton() : <Text style={styles.buttonText}>{this.props.doneLabel}</Text>;
-    return this._renderButton(content, this.props.onDone && this.props.onDone);
+    return !this.props.hideDoneButton && this._renderButton(content, this.props.onDone && this.props.onDone);
   }
 
   _renderSkipButton = () => {
