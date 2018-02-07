@@ -83,14 +83,13 @@ export default class AppIntroSlider extends React.Component {
 
   _renderSkipButton = () => {
     let content = this.props.renderSkipButton ? this.props.renderSkipButton() : <Text style={styles.buttonText}>{this.props.skipLabel}</Text>;
-    return this._renderButton(content, this.props.onSkip && this.props.onSkip, true);
+    return this.props.showSkipButton && this._renderButton(content, this.props.onSkip && this.props.onSkip, true);
   }
 
   _renderPagination = () => {
-    // if (this.props.slides.length <= 1) return null;
     const isLastSlide = this.state.activeIndex === (this.props.slides.length - 1 );
 
-    const skipBtn = !isLastSlide && this.props.showSkipButton && this._renderSkipButton();
+    const skipBtn = !isLastSlide && this._renderSkipButton();
     const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();
 
     return (
