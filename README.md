@@ -276,7 +276,9 @@ Each slide object should contain at least a unique `key`. If you use the default
 Name             | Type                | Note           
 -----------------|---------------------|---------------------
 title            | `string`            | The title
+titleStyle       | `Style`-prop        | Styling for the title (e.g color, fontSize)
 text             | `string`            | Main text of slide
+textStyle        | `Style`-prop        | Styling for the text (e.g color, fontSize)
 image            | `Image`-source prop | Slide image
 imageStyle       | `Style`-prop        | Styling for the image (e.g. size)
 backgroundColor  | `string`            | Slide background color
