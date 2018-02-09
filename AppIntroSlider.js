@@ -59,6 +59,9 @@ export default class AppIntroSlider extends React.Component {
   }
 
   _renderButton = (content, onPress, isSkip) => {
+    if(this.props.renderButton) {
+      return this.props.renderButton(content, onPress, isSkip)
+    }
     /*if (isSkip && !this.props.bottomButton && this.state.activeIndex == this.props.slides.length - 1) {
       return null;
     }*/
