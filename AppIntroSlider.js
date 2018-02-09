@@ -100,7 +100,7 @@ export default class AppIntroSlider extends React.Component {
     let dots = null;
 
     if (this.props.renderDots) {
-      dots = this.props.renderDots(this.props, this.state.activeIndex)
+      dots = this.props.renderDots(this.props.slides, this.state.activeIndex)
     } else {
       dots = this.props.slides.length > 1 && this.props.slides.map((_, i) => (
         <View
