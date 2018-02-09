@@ -58,17 +58,24 @@ export default class AppIntroSlider extends React.Component {
     return this.props.renderItem ? this.props.renderItem(props) : <DefaultSlide {...props} />;
   }
 
-  _renderButton = (content, onPress, isSkip) => {
-    /*if (isSkip && !this.props.bottomButton && this.state.activeIndex == this.props.slides.length - 1) {
-      return null;
-    }*/
-    let style = isSkip ? styles.leftButtonContainer : styles.rightButtonContainer;
+  _renderButton = (name, onPress) => {
+    const show = (name === 'Skip' || name === 'Prev') ? this.props[`show${name}Button`] : !this.props[`hide${name}Button`];
+    const content = this.props[`render${name}Button`] ? this.props[`render${name}Button`]() : this._renderDefaultButton(name);
+    return show && this._renderOuterButton(content, name, onPress);
+  }
+
+  _renderDefaultButton = (name) => {
+    let content = <Text style={styles.buttonText}>{this.props[`${name.toLowerCase()}Label`]}</Text>;
     if (this.props.bottomButton) {
-      content = <View style={[styles.bottomButton, isSkip && { backgroundColor: 'transparent' }]}>{content}</View>;
-      style = styles.bottomButtonContainer;
+      content = <View style={[styles.bottomButton, (name === 'Skip' || name === 'Prev') && { backgroundColor: 'transparent' }]}>{content}</View>
     }
+    return content;
+  }
+
+  _renderOuterButton = (content, name, onPress) => {
+    const style = (name === 'Skip' || name === 'Prev') ? styles.leftButtonContainer : styles.rightButtonContainer;
     return (
-      <View style={style}>
+      <View style={this.props.bottomButton ? styles.bottomButtonContainer : style}>
         <TouchableOpacity onPress={onPress} style={this.props.bottomButton && styles.flexOne}>
           {content}
         </TouchableOpacity>
@@ -76,32 +83,19 @@ export default class AppIntroSlider extends React.Component {
     )
   }
 
-  _renderNextButton = () => {
-    let content = this.props.renderNextButton ? this.props.renderNextButton() : <Text style={styles.buttonText}>{this.props.nextLabel}</Text>;
-    return !this.props.hideNextButton && this._renderButton(content, this._onNextPress);
-  }
+  _renderNextButton = () => this._renderButton('Next', this._onNextPress)
 
-  _renderPrevButton = () => {
-    let content = this.props.renderPrevButton ? this.props.renderPrevButton() : <Text style={styles.buttonText}>{this.props.prevLabel}</Text>;
-    return this.props.showPrevButton && this._renderButton(content, this._onPrevPress, true);
-  }
+  _renderPrevButton = () => this._renderButton('Prev', this._onPrevPress)
 
-  _renderDoneButton = () => {
-    let content = this.props.renderDoneButton ? this.props.renderDoneButton() : <Text style={styles.buttonText}>{this.props.doneLabel}</Text>;
-    return !this.props.hideDoneButton && this._renderButton(content, this.props.onDone && this.props.onDone);
-  }
+  _renderDoneButton = () => this._renderButton('Done', this.props.onDone && this.props.onDone)
 
-  _renderSkipButton = () => {
-    let content = this.props.renderSkipButton ? this.props.renderSkipButton() : <Text style={styles.buttonText}>{this.props.skipLabel}</Text>;
-    return this.props.showSkipButton && this._renderButton(content, this.props.onSkip && this.props.onSkip, true);
-  }
+  _renderSkipButton = () => this._renderButton('Skip', this.props.onSkip && this.props.onSkip)
 
   _renderPagination = () => {
     const isLastSlide = this.state.activeIndex === (this.props.slides.length - 1);
     const isFirstSlide = this.state.activeIndex === 0;
 
     const skipBtn = (!isFirstSlide && this._renderPrevButton()) || (!isLastSlide && this._renderSkipButton());
-    // const skipBtn = this._renderPrevButton();
     const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();
 
     return (
