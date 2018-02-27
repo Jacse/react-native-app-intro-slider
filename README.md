@@ -67,16 +67,20 @@ const slides = [
 ];
 
 export default class App extends React.Component {
+  this.state = {
+    showRealApp: false
+  }
   _onDone = () => {
-    // User finished the introduction. Show "real" app
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    this.setState({ showRealApp: true });
   }
   render() {
-    return (
-      <AppIntroSlider
-        slides={slides}
-        onDone={this._onDone}
-      />
-    );
+    if (this.state.showRealApp) {
+      return <App />;
+    } else {
+      return <AppIntroSlider slides={slides} onDone={this._onDone}/>;
+    }
   }
 }
 ```
