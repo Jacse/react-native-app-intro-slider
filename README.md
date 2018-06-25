@@ -250,6 +250,7 @@ nextLabel        | `string`   | `Next`                    | Custom label for Nex
 prevLabel        | `string`   | `Back`                    | Custom label for Prev button
 bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
 dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
+hidePagination   | `boolean`  | `false`                   | Enable to hide the pagination
 activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
 renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
 renderPrevButton | `function` | renders a Text-component  | Use to supply your own prev button
