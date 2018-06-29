@@ -65,9 +65,10 @@ export default class AppIntroSlider extends React.Component {
   }
 
   _renderDefaultButton = (name) => {
-    let content = <Text style={styles.buttonText}>{this.props[`${name.toLowerCase()}Label`]}</Text>;
+    let content = <Text style={[styles.buttonText, this.props.buttonTextStyle]}>{this.props[`${name.toLowerCase()}Label`]}</Text>;
     if (this.props.bottomButton) {
-      content = <View style={[styles.bottomButton, (name === 'Skip' || name === 'Prev') && { backgroundColor: 'transparent' }]}>{content}</View>
+      const buttonStyle = this.props.bottomButtonStyle ? this.props.bottomButtonStyle : styles.bottomButton;
+      content = <View style={[buttonStyle, (name === 'Skip' || name === 'Prev') && { backgroundColor: 'transparent' }]}>{content}</View>
     }
     return content;
   }
@@ -75,7 +76,7 @@ export default class AppIntroSlider extends React.Component {
   _renderOuterButton = (content, name, onPress) => {
     const style = (name === 'Skip' || name === 'Prev') ? styles.leftButtonContainer : styles.rightButtonContainer;
     return (
-      <View style={this.props.bottomButton ? styles.bottomButtonContainer : style}>
+      <View style={this.props.bottomButton ? [styles.bottomButtonContainer, this.props.bottomButtonContainerStyle] : style}>
         <TouchableOpacity onPress={onPress} style={this.props.bottomButton && styles.flexOne}>
           {content}
         </TouchableOpacity>
@@ -99,7 +100,7 @@ export default class AppIntroSlider extends React.Component {
     const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();
 
     return (
-      <View style={styles.paginationContainer}>
+      <View style={[styles.paginationContainer, this.props.paginationContainerStyle]}>
         <View style={styles.paginationDots}>
           {!this.props.bottomButton && skipBtn}
           {this.props.slides.length > 1 && this.props.slides.map((_, i) => (
