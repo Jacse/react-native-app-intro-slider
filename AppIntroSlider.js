@@ -32,6 +32,7 @@ export default class AppIntroSlider extends React.Component {
     doneLabel: 'Done',
     nextLabel: 'Next',
     prevLabel: 'Back',
+    buttonStyle: {},
   }
   state = {
     width,
@@ -71,7 +72,7 @@ export default class AppIntroSlider extends React.Component {
   _renderDefaultButton = (name) => {
     let content = <Text style={styles.buttonText}>{this.props[`${name.toLowerCase()}Label`]}</Text>;
     if (this.props.bottomButton) {
-      content = <View style={[styles.bottomButton, (name === 'Skip' || name === 'Prev') && { backgroundColor: 'transparent' }]}>{content}</View>
+      content = <View style={[styles.bottomButton, (name === 'Skip' || name === 'Prev') && { backgroundColor: 'transparent' }, this.props.buttonStyle]}>{content}</View>
     }
     return content;
   }
@@ -80,7 +81,7 @@ export default class AppIntroSlider extends React.Component {
     const style = (name === 'Skip' || name === 'Prev') ? styles.leftButtonContainer : styles.rightButtonContainer;
     return (
       <View style={this.props.bottomButton ? styles.bottomButtonContainer : style}>
-        <TouchableOpacity onPress={onPress} style={this.props.bottomButton && styles.flexOne}>
+        <TouchableOpacity onPress={onPress} style={this.props.bottomButton ? styles.flexOne : this.props.buttonStyle}>
           {content}
         </TouchableOpacity>
       </View>
