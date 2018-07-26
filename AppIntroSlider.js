@@ -72,7 +72,7 @@ export default class AppIntroSlider extends React.Component {
 
   _renderDefaultButton = (name) => {
     let content = (
-      <Text style={[style.buttonText, this.props.buttonTextStyle]}>
+      <Text style={[styles.buttonText, this.props.buttonTextStyle]}>
         {this.props[`${name.toLowerCase()}Label`]}
       </Text>
     );
