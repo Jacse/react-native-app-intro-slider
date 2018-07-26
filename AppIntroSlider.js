@@ -32,8 +32,8 @@ export default class AppIntroSlider extends React.Component {
     doneLabel: 'Done',
     nextLabel: 'Next',
     prevLabel: 'Back',
-    buttonStyle: {},
-    buttonTextStyle: {},
+    buttonStyle: null,
+    buttonTextStyle: null,
   }
   state = {
     width,
@@ -157,7 +157,22 @@ export default class AppIntroSlider extends React.Component {
   }
 
   render() {
-    const {hidePagination} = this.props
+    // Separate props used by the component to props passed to FlatList
+    const {
+      hidePagination,
+      activeDotStyle,
+      dotStyle,
+      skipLabel,
+      doneLabel,
+      nextLabel,
+      prevLabel,
+      buttonStyle,
+      buttonTextStyle,
+      renderItem,
+      data,
+      ...otherProps,
+    } = this.props;
+
     return (
       <View style={styles.flexOne}>
         <FlatList
@@ -172,6 +187,7 @@ export default class AppIntroSlider extends React.Component {
           onMomentumScrollEnd={this._onMomentumScrollEnd}
           extraData={this.state.width}
           onLayout={this._onLayout}
+          {...otherProps}
         />
         {!hidePagination && this._renderPagination()}
       </View>

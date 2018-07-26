@@ -244,6 +244,8 @@ Here a custom `renderItem` is supplied and the `bottomButton`-props has been set
 
 <h2 align="center">Props and options</h2>
 
+The component extends `FlatList` so all FlatList-props are valid.
+
 ### Configure looks
 
 Name             | Type       | Default                   | Description
