@@ -157,6 +157,7 @@ export default class AppIntroSlider extends React.Component {
   }
 
   render() {
+    const {hidePagination} = this.props
     return (
       <View style={styles.flexOne}>
         <FlatList
@@ -172,7 +173,7 @@ export default class AppIntroSlider extends React.Component {
           extraData={this.state.width}
           onLayout={this._onLayout}
         />
-        {this._renderPagination()}
+        {!hidePagination && this._renderPagination()}
       </View>
     );
   }
