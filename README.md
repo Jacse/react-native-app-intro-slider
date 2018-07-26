@@ -253,8 +253,10 @@ doneLabel        | `string`   | `Done`                    | Custom label for Don
 nextLabel        | `string`   | `Next`                    | Custom label for Next button
 prevLabel        | `string`   | `Back`                    | Custom label for Prev button
 bottomButton     | `boolean`  | `false`                   | Enable to show a full-width button under pagination
-dotColor         | `string`   | 'rgba(0, 0, 0, .2)'       | Color of inactive pagination dots
-activeDotColor   | `string`   | 'rgba(255, 255, 255, .9)' | Color of active pagination dot
+buttonStyle      | `style`    | {}                        | Styling of outer button component
+buttonTextStyle  | `style`    | {}                        | Styling of button text component
+dotStyle         | `style`    | {backgroundColor: 'rgba(0, 0, 0, .2)'} | Style of inactive pagination dots
+activeDotStyle   | `style`    | {backgroundColor: 'rgba(255, 255, 255, .9)'} | Style of active pagination dot
 renderNextButton | `function` | renders a Text-component  | Use to supply your own next button
 renderPrevButton | `function` | renders a Text-component  | Use to supply your own prev button
 renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
