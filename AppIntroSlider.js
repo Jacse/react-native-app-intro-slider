@@ -223,6 +223,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 18,
-    padding: 16,
+    padding: 12,
   }
 });
