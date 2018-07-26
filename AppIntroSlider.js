@@ -22,8 +22,12 @@ const isIphoneX = (
 
 export default class AppIntroSlider extends React.Component {
   static defaultProps = {
-    activeDotColor: 'rgba(255, 255, 255, .9)',
-    dotColor: 'rgba(0, 0, 0, .2)',
+    activeDotStyle: {
+      backgroundColor: 'rgba(255, 255, 255, .9)',
+    },
+    dotStyle: {
+      backgroundColor: 'rgba(0, 0, 0, .2)',
+    },
     skipLabel: 'Skip',
     doneLabel: 'Done',
     nextLabel: 'Next',
@@ -106,8 +110,8 @@ export default class AppIntroSlider extends React.Component {
             <View
               key={i}
               style={[
-                { backgroundColor: i === this.state.activeIndex ? this.props.activeDotColor : this.props.dotColor },
                 styles.dot,
+                i === this.state.activeIndex ? this.props.activeDotStyle : this.props.dotStyle,
               ]}
             />
           ))}
