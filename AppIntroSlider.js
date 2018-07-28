@@ -170,7 +170,7 @@ export default class AppIntroSlider extends React.Component {
       buttonTextStyle,
       renderItem,
       data,
-      ...otherProps,
+      ...otherProps
     } = this.props;
 
     return (
