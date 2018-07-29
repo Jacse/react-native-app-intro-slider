@@ -156,6 +156,15 @@ export default class AppIntroSlider extends React.Component {
     }
   }
 
+  _statusBarColor(){
+    return (
+      <StatusBar
+        backgroundColor={this.props.slides[this.state.activeIndex].statusBarColor || this.props.slides[this.state.activeIndex].backgroundColor || this.props.slides[this.state.activeIndex].colors[0]}
+        barStyle="light-content"
+       />
+     )
+  }
+
   render() {
     // Separate props used by the component to props passed to FlatList
     const {
@@ -190,6 +199,7 @@ export default class AppIntroSlider extends React.Component {
           {...otherProps}
         />
         {!hidePagination && this._renderPagination()}
+        {this._statusBarColor()}
       </View>
     );
   }
