@@ -265,6 +265,7 @@ renderPrevButton | `function` | renders a Text-component  | Use to supply your o
 renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
 renderSkipButton | `function` | renders a Text-component  | Use to supply your own skip button
 renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
+statusBarColor   | `string`   | `#000` if backgroundColor or colors array is provided it will pick it from there.| Custom Status bar color
 
 ### Configure behavior
 
