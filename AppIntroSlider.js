@@ -159,7 +159,7 @@ export default class AppIntroSlider extends React.Component {
   _statusBarColor(){
     return (
       <StatusBar
-        backgroundColor={this.props.slides[this.state.activeIndex].statusBarColor || this.props.slides[this.state.activeIndex].backgroundColor || this.props.slides[this.state.activeIndex].colors[0]}
+        backgroundColor={this.props.slides[this.state.activeIndex].statusBarColor || this.props.slides[this.state.activeIndex].backgroundColor || this.props.slides[this.state.activeIndex].colors[0] || '#000'}
         barStyle="light-content"
        />
      )
