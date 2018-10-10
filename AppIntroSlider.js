@@ -150,7 +150,7 @@ export default class AppIntroSlider extends React.Component {
         <View style={styles.paginationDots}>
           {this.props.slides.length > 1 &&
             this.props.slides.map((_, i) => (
-              <View
+              <TouchableOpacity
                 key={i}
                 style={[
                   styles.dot,
@@ -158,6 +158,7 @@ export default class AppIntroSlider extends React.Component {
                     ? this.props.activeDotStyle
                     : this.props.dotStyle,
                 ]}
+                onPress={() => this.goToSlide(i)}
               />
             ))}
         </View>
