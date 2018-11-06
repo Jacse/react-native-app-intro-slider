@@ -45,6 +45,14 @@ export default class AppIntroSlider extends React.Component {
     activeIndex: 0,
   };
 
+  componentDidMount() {
+    if (this._isRTL()) {
+      this.setState({ activeIndex: this._getSlides().length - 1 });
+    }
+
+    console.log(this.props.slides);
+  }
+
   _isRTL = () => {
     // Just in case that RTL is also depends on Platform or other stuff
     return isRTL;
@@ -115,8 +123,8 @@ export default class AppIntroSlider extends React.Component {
   _renderSkipButton = () => this._renderButton('Skip', this.props.onSkip && this.props.onSkip);
 
   _renderPagination = () => {
-    const isLastSlide = this.state.activeIndex === (this.props.slides.length - 1);
-    const isFirstSlide = this.state.activeIndex === 0;
+    const isLastSlide = this.state.activeIndex === this._getLastSlide();
+    const isFirstSlide = this.state.activeIndex === this._getFirstSlide();
 
     const skipBtn = (!isFirstSlide && this._renderPrevButton()) || (!isLastSlide && this._renderSkipButton());
     const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();
@@ -173,7 +181,24 @@ export default class AppIntroSlider extends React.Component {
     if (this._isRTL()) {
       return this.props.slides.reverse();
     }
+
     return this.props.slides;
+  };
+
+  _getFirstSlide = () => {
+    if (this._isRTL()) {
+      return this.props.slides.length - 1;
+    }
+
+    return 0;
+  };
+
+  _getLastSlide = () => {
+    if (this._isRTL()) {
+      return 0;
+    }
+
+    return this.props.slides.length - 1;
   };
 
   render() {
