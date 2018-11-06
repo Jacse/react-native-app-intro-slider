@@ -16,7 +16,8 @@ export default class DefaultSlide extends React.PureComponent {
       paddingBottom: this.props.bottomSpacer,
       width: this.props.width,
       height: this.props.height,
-    }
+    };
+
     return (
       <View style={[styles.mainContent, style]}>
         <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>
