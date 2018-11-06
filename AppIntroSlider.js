@@ -1,7 +1,3 @@
-/**
- * @providesModule react-native-app-intro-slider
- */
-
 import React from 'react';
 import {
     StyleSheet,
