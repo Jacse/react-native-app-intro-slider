@@ -49,6 +49,8 @@ export default class AppIntroSlider extends React.Component {
     if (this._isRTL()) {
       this.setState({ activeIndex: this._getSlides().length - 1 });
     }
+
+    console.log(this.props.slides);
   }
 
   _isRTL = () => {
@@ -62,11 +64,13 @@ export default class AppIntroSlider extends React.Component {
   };
 
   _onNextPress = () => {
-    this.goToSlide(this.state.activeIndex + 1);
+    const nextSlide = this._isRTL() ? this.state.activeIndex - 1 : this.state.activeIndex + 1;
+    this.goToSlide(nextSlide);
     this.props.onSlideChange && this.props.onSlideChange(this.state.activeIndex + 1, this.state.activeIndex);
   };
 
   _onPrevPress = () => {
+    const prevSlide = this._isRTL() ? this.state.activeIndex + 1 : this.state.activeIndex - 1;
     this.goToSlide(this.state.activeIndex - 1);
     this.props.onSlideChange && this.props.onSlideChange(this.state.activeIndex - 1, this.state.activeIndex);
   };
