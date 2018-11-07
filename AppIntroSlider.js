@@ -71,7 +71,7 @@ export default class AppIntroSlider extends React.Component {
 
   _onPrevPress = () => {
     const prevSlide = this._isRTL() ? this.state.activeIndex + 1 : this.state.activeIndex - 1;
-    this.goToSlide(this.state.activeIndex - 1);
+    this.goToSlide(prevSlide);
     this.props.onSlideChange && this.props.onSlideChange(this.state.activeIndex - 1, this.state.activeIndex);
   };
 
