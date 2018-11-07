@@ -49,8 +49,6 @@ export default class AppIntroSlider extends React.Component {
     if (this._isRTL()) {
       this.setState({ activeIndex: this._getSlides().length - 1 });
     }
-
-    console.log(this.props.slides);
   }
 
   _isRTL = () => {
