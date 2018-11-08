@@ -52,7 +52,7 @@ export default class AppIntroSlider extends React.Component {
   }
 
   _isRTL = () => {
-    return isRTL && Platform.OS !== 'android';
+    return isRTL && Platform.OS !== 'ios';
   };
 
   goToSlide = (pageNum) => {
