@@ -67,14 +67,16 @@ const slides = [
 ];
 
 export default class App extends React.Component {
-  this.state = {
+  state = {
     showRealApp: false
-  }
+  };
+  
   _onDone = () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
     this.setState({ showRealApp: true });
-  }
+  };
+  
   render() {
     if (this.state.showRealApp) {
       return <App />;
@@ -305,3 +307,6 @@ cd react-native-app-intro-slider/Example
 yarn
 yarn start
 ```
+
+<h2 align="center">Additional Info</h2>
+- <strong>RTL Support</strong>
