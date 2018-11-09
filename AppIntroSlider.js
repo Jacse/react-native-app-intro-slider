@@ -47,7 +47,7 @@ export default class AppIntroSlider extends React.Component {
 
   componentDidMount() {
     if (this._isRTL()) {
-      this.setState({ activeIndex: this._getSlides().length - 1 });
+      this.setState({ activeIndex: this.props.slides.length - 1 });
     }
   }
 
@@ -102,8 +102,16 @@ export default class AppIntroSlider extends React.Component {
     return content;
   };
 
+  _getOuterButtonStyle = name => {
+    if (this._isRTL()) {
+      return (name === 'Skip' || name === 'Prev') ? styles.rightButtonContainer : styles.leftButtonContainer;
+    }
+
+    return (name === 'Skip' || name === 'Prev') ? styles.leftButtonContainer : styles.rightButtonContainer;
+  };
+
   _renderOuterButton = (content, name, onPress) => {
-    const style = (name === 'Skip' || name === 'Prev') ? styles.leftButtonContainer : styles.rightButtonContainer;
+    const style = this._getOuterButtonStyle(name);
     return (
       <View style={this.props.bottomButton ? styles.bottomButtonContainer : style}>
         <TouchableOpacity onPress={onPress} style={this.props.bottomButton ? styles.flexOne : this.props.buttonStyle}>
@@ -130,9 +138,12 @@ export default class AppIntroSlider extends React.Component {
 
     return (
       <View style={styles.paginationContainer}>
-        <View style={styles.paginationDots}>
+        <View style={[
+          styles.paginationDots,
+          this._isRTL() && { flexDirection: 'row-reverse' }
+        ]}>
           {!this.props.bottomButton && skipBtn}
-          {this.props.slides.length > 1 && this._getSlides().map((_, i) => (
+          {this.props.slides.length > 1 && this.props.slides.map((_, i) => (
             <View
               key={i}
               style={[
@@ -176,14 +187,6 @@ export default class AppIntroSlider extends React.Component {
     }
   };
 
-  _getSlides = () => {
-    if (this._isRTL()) {
-      return this.props.slides.reverse();
-    }
-
-    return this.props.slides;
-  };
-
   _getFirstSlide = () => {
     if (this._isRTL()) {
       return this.props.slides.length - 1;
@@ -221,7 +224,7 @@ export default class AppIntroSlider extends React.Component {
       <View style={styles.flexOne}>
         <FlatList
           ref={ref => this.flatList = ref}
-          data={this._getSlides()}
+          data={this.props.slides}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
@@ -231,7 +234,6 @@ export default class AppIntroSlider extends React.Component {
           onMomentumScrollEnd={this._onMomentumScrollEnd}
           extraData={this.state.width}
           onLayout={this._onLayout}
-          inverted={this._isRTL()}
           {...otherProps}
         />
         {!hidePagination && this._renderPagination()}
