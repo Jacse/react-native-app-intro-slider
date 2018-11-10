@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Platform,
   StatusBar,
+  I18nManager,
 } from 'react-native';
 import DefaultSlide from './DefaultSlide';
 
