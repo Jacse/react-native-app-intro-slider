@@ -280,9 +280,10 @@ onDone           | `function` | `void`                    | Called when user end
 onSkip           | `function` | Scroll the list to the end                    | Called when user presses the skip button
 
 ### Methods
- | Method Name | Arguments | Description
-|---|---|---|
-| getListRef | `none` | Returns the Flat List ref
+Method Name | Arguments | Description
+------------|-----------|----------------
+goToSlide   | `number`  | Change to slide with specified index
+getListRef  | `none`    | Returns the Flat List ref
 
 ### Slide object
 Each slide object should contain at least a unique `key`. If you use the default layouts your object should furthermore contain:
