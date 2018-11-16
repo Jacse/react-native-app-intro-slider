@@ -277,9 +277,14 @@ hideNextButton   | `boolean`  | `false`                   | Enable to hide the n
 hideDoneButton   | `boolean`  | `false`                   | Enable to hide the done button
 onSlideChange    | `function` | `void`                    | Called when user goes changes slide (by swiping or pressing next/prev). Function called with arguments `index: number, lastIndex: number`
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
-onSkip           | `function` | `void`                    | Called when user presses the skip button
+onSkip           | `function` | Scroll the list to the end                    | Called when user presses the skip button
 
-#### slide object
+### Methods
+ | Method Name | Arguments | Description
+|---|---|---|
+| getListRef | `none` | Returns the Flat List ref
+
+### Slide object
 Each slide object should contain at least a unique `key`. If you use the default layouts your object should furthermore contain:
 
 Name             | Type                | Note           
