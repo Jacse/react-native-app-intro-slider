@@ -24,6 +24,7 @@ const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
 export default class AppIntroSlider extends React.Component {
   static defaultProps = {
+    dotBottom: false,
     activeDotStyle: {
       backgroundColor: 'rgba(255, 255, 255, .9)',
     },
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
   },
   paginationContainer: {
     position: 'absolute',
-    bottom: 16 + (isIphoneX ? 34 : 0),
+    bottom: this.props.dotBottom ? this.props.dotBottom : 16 + (isIphoneX ? 34 : 0),
     left: 0,
     right: 0,
   },
