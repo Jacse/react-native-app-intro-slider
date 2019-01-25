@@ -22,6 +22,7 @@ const isIphoneX = (
 
 export default class AppIntroSlider extends React.Component {
   static defaultProps = {
+    dotBottom: false,
     activeDotStyle: {
       backgroundColor: 'rgba(255, 255, 255, .9)',
     },
@@ -109,7 +110,7 @@ export default class AppIntroSlider extends React.Component {
     const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();
 
     return (
-      <View style={styles.paginationContainer}>
+      <View style={{position: 'absolute', bottom: (typeof this.props.dotBottom === 'number') ? this.props.dotBottom : 16 + (isIphoneX ? 34 : 0), left: 0, right: 0}}>
         <View style={styles.paginationDots}>
           {!this.props.bottomButton && skipBtn}
           {this.props.slides.length > 1 && this.props.slides.map((_, i) => (
