@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   },
   paginationContainer: {
     position: 'absolute',
-    bottom: this.props.dotBottom ? this.props.dotBottom : 16 + (isIphoneX ? 34 : 0),
+    bottom: 16 + (isIphoneX ? 34 : 0),
     left: 0,
     right: 0,
   },
