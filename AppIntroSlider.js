@@ -169,7 +169,7 @@ export default class AppIntroSlider extends React.Component {
       : this._renderNextButton();
 
     return (
-      <View style={styles.paginationContainer}>
+      <View style={{position: 'absolute', bottom: (typeof this.props.dotBottom === 'number') ? this.props.dotBottom : 16 + (isIphoneX ? 34 : 0), left: 0, right: 0,}}>
         <View style={styles.paginationDots}>
           {!this.props.bottomButton && skipBtn}
           {this.props.slides.length > 1 &&
