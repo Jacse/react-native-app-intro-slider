@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flex: 1,
-    flexDirection: isAndroidRTL ? 'row' : 'row-reverse',
+    flexDirection: isAndroidRTL ? 'row-reverse' : 'row',
   },
   paginationContainer: {
     position: 'absolute',
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   paginationDots: {
     height: 16,
     margin: 16,
-    flexDirection: isAndroidRTL ? 'row' : 'row-reverse',
+    flexDirection: isAndroidRTL ?'row-reverse' : 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
