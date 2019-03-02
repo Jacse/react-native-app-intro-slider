@@ -50,6 +50,9 @@ export default class AppIntroSlider extends React.Component {
     });
   };
 
+  // Get the list ref
+  getListRef = () => this.flatList;
+
   _onNextPress = () => {
     this.goToSlide(this.state.activeIndex + 1);
     this.props.onSlideChange &&
@@ -151,7 +154,7 @@ export default class AppIntroSlider extends React.Component {
     this._renderButton('Done', this.props.onDone && this.props.onDone);
 
   _renderSkipButton = () =>
-    this._renderButton('Skip', this.props.onSkip && this.props.onSkip);
+    this._renderButton('Skip', () => this.props.onSkip ? this.props.onSkip : this.flatList.scrollToEnd(true));
 
   _renderPagination = () => {
     const isLastSlide = this.state.activeIndex === this.props.slides.length - 1;
@@ -267,7 +270,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flex: 1,
-    flexDirection: isAndroidRTL ? 'row' : 'row-reverse',
+    flexDirection: isAndroidRTL ? 'row-reverse' : 'row',
   },
   paginationContainer: {
     position: 'absolute',
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
   paginationDots: {
     height: 16,
     margin: 16,
-    flexDirection: isAndroidRTL ? 'row' : 'row-reverse',
+    flexDirection: isAndroidRTL ?'row-reverse' : 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
