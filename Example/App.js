@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image, I18nManager } from 'react-native';
 import { LinearGradient } from 'expo';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
-I18nManager.forceRTL(true);
+I18nManager.forceRTL(false);
 
 const styles = StyleSheet.create({
   mainContent: {
@@ -91,7 +91,7 @@ export default class App extends React.Component {
       <AppIntroSlider
         slides={slides}
         renderItem={this._renderItem}
-        bottomButton
+        // bottomButton
         showPrevButton
         showSkipButton
         // hideNextButton
