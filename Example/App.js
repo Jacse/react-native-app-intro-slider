@@ -1,8 +1,10 @@
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, I18nManager } from 'react-native';
 import { LinearGradient } from 'expo';
 import AppIntroSlider from 'react-native-app-intro-slider';
+
+I18nManager.forceRTL(true);
 
 const styles = StyleSheet.create({
   mainContent: {
