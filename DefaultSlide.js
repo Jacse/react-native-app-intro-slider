@@ -1,22 +1,14 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-native';
 
 export default class DefaultSlide extends React.PureComponent {
   render() {
     const style = {
       backgroundColor: this.props.backgroundColor,
-      paddingTop: this.props.topSpacer,
-      paddingBottom: this.props.bottomSpacer,
       width: this.props.width,
       height: this.props.height,
-    }
+      paddingBottom: this.props.bottomButton ? 132 : 64,
+    };
     return (
       <View style={[styles.mainContent, style]}>
         <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>
@@ -44,5 +36,5 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, .7)',
     fontWeight: '300',
     paddingHorizontal: 16,
-  }
+  },
 });

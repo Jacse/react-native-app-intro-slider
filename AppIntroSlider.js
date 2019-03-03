@@ -33,6 +33,9 @@ export default class AppIntroSlider extends React.Component {
     prevLabel: 'Back',
     buttonStyle: null,
     buttonTextStyle: null,
+    paginationStyle: null,
+    showDoneButton: true,
+    showNextButton: true,
   };
   state = {
     width,
@@ -63,21 +66,20 @@ export default class AppIntroSlider extends React.Component {
 
   _renderItem = item => {
     const { width, height } = this.state;
-    const bottomSpacer =
-      (this.props.bottomButton ? (this.props.showSkipButton ? 44 : 0) + 44 : 0) +
-      (isIphoneX ? 34 : 0) +
-      64;
-    const topSpacer = (isIphoneX ? 44 : 0) + (Platform.OS === 'ios' ? 20 : StatusBar.currentHeight);
-    const props = { ...item.item, bottomSpacer, topSpacer, width, height };
-
-    return this.props.renderItem ? this.props.renderItem(props) : <DefaultSlide {...props} />;
+    const props = { ...item.item, width, height };
+    return (
+      <View style={{ width: this.state.width, height: this.state.height }}>
+        {this.props.renderItem ? (
+          this.props.renderItem(props)
+        ) : (
+          <DefaultSlide bottomButton={this.props.bottomButton} {...props} />
+        )}
+      </View>
+    );
   };
 
   _renderButton = (name, onPress) => {
-    const show =
-      name === 'Skip' || name === 'Prev'
-        ? this.props[`show${name}Button`]
-        : !this.props[`hide${name}Button`];
+    const show = this.props[`show${name}Button`];
     const content = this.props[`render${name}Button`]
       ? this.props[`render${name}Button`]()
       : this._renderDefaultButton(name);
@@ -112,7 +114,7 @@ export default class AppIntroSlider extends React.Component {
     const style =
       name === 'Skip' || name === 'Prev' ? styles.leftButtonContainer : styles.rightButtonContainer;
     return (
-      <View style={this.props.bottomButton ? styles.bottomButtonContainer : style}>
+      <View style={!this.props.bottomButton && style}>
         <TouchableOpacity
           onPress={onPress}
           style={this.props.bottomButton ? styles.flexOne : this.props.buttonStyle}
@@ -144,7 +146,7 @@ export default class AppIntroSlider extends React.Component {
     const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();
 
     return (
-      <View style={styles.paginationContainer}>
+      <View style={[styles.paginationContainer, this.props.paginationStyle]}>
         <View style={styles.paginationDots}>
           {this.props.slides.length > 1 &&
             this.props.slides.map((_, i) => (
@@ -272,10 +274,6 @@ const styles = StyleSheet.create({
   rightButtonContainer: {
     position: 'absolute',
     right: 0,
-  },
-  bottomButtonContainer: {
-    height: 44,
-    marginHorizontal: 16,
   },
   bottomButton: {
     flex: 1,
