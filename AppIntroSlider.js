@@ -134,7 +134,7 @@ export default class AppIntroSlider extends React.Component {
   _renderSkipButton = () =>
     // scrollToEnd does not work in RTL so use goToSlide instead
     this._renderButton('Skip', () =>
-      this.props.onSkip ? this.props.onSkip : this.goToSlide(this.props.slides.length - 1)
+      this.props.onSkip ? this.props.onSkip() : this.goToSlide(this.props.slides.length - 1)
     );
 
   _renderPagination = () => {
