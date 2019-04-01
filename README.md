@@ -214,8 +214,6 @@ export default class App extends React.Component {
   _renderItem = props => (
     <LinearGradient
       style={[styles.mainContent, {
-        paddingTop: props.topSpacer,
-        paddingBottom: props.bottomSpacer,
         width: props.width,
         height: props.height,
       }]}
@@ -266,7 +264,7 @@ renderNextButton | `function` | renders a Text-component  | Use to supply your o
 renderPrevButton | `function` | renders a Text-component  | Use to supply your own prev button
 renderDoneButton | `function` | renders a Text-component  | Use to supply your own done button
 renderSkipButton | `function` | renders a Text-component  | Use to supply your own skip button
-renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as wells as `{ topSpacer: Number, bottomSpacer: Number }`. These show the "safe-space" where other UI is not interfering - take a look at `DefaultSlide.js` too see how they are set up.
+renderItem       | `function` | renders `DefaultSlide`    | Function returning a slide. The function is passed the slide object as a parameter.
 
 ### Configure behavior
 
