@@ -44,10 +44,13 @@ export default class AppIntroSlider extends React.Component {
   };
 
   goToSlide = pageNum => {
+    const activeIndexBeforeChange = this.state.activeIndex;
     this.setState({ activeIndex: pageNum });
     this.flatList.scrollToOffset({
       offset: this._rtlSafeIndex(pageNum) * this.state.width,
     });
+    this.props.onSlideChange &&
+      this.props.onSlideChange(pageNum, activeIndexBeforeChange);
   };
 
   // Get the list ref
@@ -55,13 +58,9 @@ export default class AppIntroSlider extends React.Component {
 
   _onNextPress = () => {
     this.goToSlide(this.state.activeIndex + 1);
-    this.props.onSlideChange &&
-      this.props.onSlideChange(this.state.activeIndex + 1, this.state.activeIndex);
   };
   _onPrevPress = () => {
     this.goToSlide(this.state.activeIndex - 1);
-    this.props.onSlideChange &&
-      this.props.onSlideChange(this.state.activeIndex - 1, this.state.activeIndex);
   };
 
   _renderItem = item => {
