@@ -64,6 +64,13 @@ export default class AppIntroSlider extends React.Component {
       this.props.onSlideChange(this.state.activeIndex - 1, this.state.activeIndex);
   };
 
+  _onPaginationPress = (index) => {
+    const activeIndexBeforeChange = this.state.activeIndex;
+    this.goToSlide(index);
+    this.props.onSlideChange &&
+      this.props.onSlideChange(index, activeIndexBeforeChange);
+  };
+
   _renderItem = item => {
     const { width, height } = this.state;
     const props = { ...item.item, width, height };
@@ -158,7 +165,7 @@ export default class AppIntroSlider extends React.Component {
                     ? this.props.activeDotStyle
                     : this.props.dotStyle,
                 ]}
-                onPress={() => this.goToSlide(i)}
+                onPress={() => this._onPaginationPress(i)}
               />
             ))}
         </View>
