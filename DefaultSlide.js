@@ -6,7 +6,7 @@ export default class DefaultSlide extends React.PureComponent {
     const style = {
       backgroundColor: this.props.backgroundColor,
       width: this.props.width,
-      height: this.props.height,
+      flex: 1,
       paddingBottom: this.props.bottomButton ? 132 : 64,
     };
     return (
