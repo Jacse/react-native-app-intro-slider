@@ -43,32 +43,43 @@ export default class AppIntroSlider extends React.Component {
     activeIndex: 0,
   };
 
+  _enableScroll = () => this.flatList.setNativeProps({scrollEnabled: true});
+  _disableScroll = () => this.flatList.setNativeProps({scrollEnabled: false});
+
   goToSlide = pageNum => {
+    this._enableScroll();
     this.setState({ activeIndex: pageNum });
     this.flatList.scrollToOffset({
       offset: this._rtlSafeIndex(pageNum) * this.state.width,
     });
+    this.props.disableGestureSwipe && this._disableScroll();
   };
 
   // Get the list ref
   getListRef = () => this.flatList;
 
   _onNextPress = () => {
-    this.goToSlide(this.state.activeIndex + 1);
+    this._enableScroll();
+    this.goToSlide((this.state.activeIndex || 0) + 1);
     this.props.onSlideChange &&
-      this.props.onSlideChange(this.state.activeIndex + 1, this.state.activeIndex);
+      this.props.onSlideChange((this.state.activeIndex || 0) + 1, this.state.activeIndex);
+    this.props.disableGestureSwipe && this._disableScroll();
   };
   _onPrevPress = () => {
+    this._enableScroll();
     this.goToSlide(this.state.activeIndex - 1);
     this.props.onSlideChange &&
       this.props.onSlideChange(this.state.activeIndex - 1, this.state.activeIndex);
+    this.props.disableGestureSwipe && this._disableScroll();
   };
 
   _onPaginationPress = (index) => {
+    this._enableScroll();
     const activeIndexBeforeChange = this.state.activeIndex;
     this.goToSlide(index);
     this.props.onSlideChange &&
       this.props.onSlideChange(index, activeIndexBeforeChange);
+    this.props.disableGestureSwipe && this._disableScroll();
   };
 
   _renderItem = item => {
@@ -229,6 +240,7 @@ export default class AppIntroSlider extends React.Component {
     return (
       <View style={styles.flexOne}>
         <FlatList
+          scrollEnabled={!this.props.disableGestureSwipe}
           ref={ref => (this.flatList = ref)}
           data={this.props.slides}
           horizontal

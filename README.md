@@ -268,16 +268,17 @@ renderItem       | `function` | renders `DefaultSlide`    | Function returning a
 
 ### Configure behavior
 
-Name             | Type       | Default                   | Description
------------------|------------|---------------------------|--------------
-slides           | `object`   | No default, required      | An array of objects (they should either contain a unique `key`-prop or you should pass a `keyExtractor`-function to the component)
-showSkipButton   | `boolean`  | `false`                   | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button
-showPrevButton   | `boolean`  | `false`                   | Enable to show a previous button. If `showSkipButton` is true, the skip button will be displayed on the first page and prev button on subsequent one
-showNextButton   | `boolean`  | `true`                    | Disable to hide the next button
-showDoneButton   | `boolean`  | `true`                    | Disable to hide the done button
-onSlideChange    | `function` | `void`                    | Called when user goes changes slide (by swiping or pressing next/prev). Function called with arguments `index: number, lastIndex: number`
-onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
-onSkip           | `function` | Scroll the list to the end                    | Called when user presses the skip button
+Name                | Type       | Default                   | Description
+--------------------|------------|---------------------------|--------------
+slides              | `object`   | No default, required      | An array of objects (they should either contain a unique `key`-prop or you should pass a `keyExtractor`-function to the component)
+showSkipButton      | `boolean`  | `false`                   | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button
+showPrevButton      | `boolean`  | `false`                   | Enable to show a previous button. If `showSkipButton` is true, the skip button will be displayed on the first page and prev button on subsequent one
+showNextButton      | `boolean`  | `true`                    | Disable to hide the next button
+showDoneButton      | `boolean`  | `true`                    | Disable to hide the done button
+onSlideChange       | `function` | `void`                    | Called when user goes changes slide (by swiping or pressing next/prev). Function called with arguments `index: number, lastIndex: number`
+onDone              | `function` | `void`                    | Called when user ends the introduction by pressing the done button.
+onSkip              | `function` | Scroll the list to the end                    | Called when user presses the skip button
+disableGestureSwipe | `boolean`  | `false`                   | Disable horizontal gesture swipe. Swipe only with buttons.
 
 ### Methods
 Method Name | Arguments | Description
