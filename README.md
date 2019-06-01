@@ -31,8 +31,28 @@ The component is based on FlatList so usage is very similar. Pass a data-array t
 
 ```javascript
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
+
+const styles = StyleSheet.create({
+  title: {
+   fontSize: 24,
+   fontWeight: 'bold',
+   textAlign: 'center'
+  },
+  text: {
+   fontSize: 16,
+   fontWeight: 'bold',
+   textAlign: 'center'
+  },
+  image: {
+    width: 320,
+    height: 320
+  },
+  slide: {
+    flex: 1
+  }
+});
 
 const slides = [
   {
