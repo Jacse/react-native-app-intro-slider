@@ -59,8 +59,13 @@ const slides = [
 ];
 
 export default class App extends React.Component {
-  this.state = {
-    showRealApp: false
+
+  constructor() {
+    super();
+    
+    this.state = {
+      showRealApp: false
+    }
   }
   _renderItem = (item) => {
     return (
