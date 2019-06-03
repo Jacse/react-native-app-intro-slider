@@ -278,6 +278,7 @@ showDoneButton   | `boolean`  | `true`                    | Disable to hide the 
 onSlideChange    | `function` | `void`                    | Called when user goes changes slide (by swiping or pressing next/prev). Function called with arguments `index: number, lastIndex: number`
 onDone           | `function` | `void`                    | Called when user ends the introduction by pressing the done button
 onSkip           | `function` | Scroll the list to the end                    | Called when user presses the skip button
+scrollEnabled   | `boolean`  | `true`                    | Disable to block swiping between slides
 
 ### Methods
 Method Name | Arguments | Description
