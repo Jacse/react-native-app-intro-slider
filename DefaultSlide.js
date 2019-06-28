@@ -3,17 +3,18 @@ import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-nativ
 
 export default class DefaultSlide extends React.PureComponent {
   render() {
+    const {item, index, dimensions} = this.props
     const style = {
-      backgroundColor: this.props.backgroundColor,
-      width: this.props.width,
-      height: this.props.height,
-      paddingBottom: this.props.bottomButton ? 132 : 64,
+      backgroundColor: item.backgroundColor,
+      width: dimensions.width,
+      height: dimensions.height,
+      paddingBottom: item.bottomButton ? 132 : 64,
     };
     return (
       <View style={[styles.mainContent, style]}>
-        <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>
-        <Image source={this.props.image} style={this.props.imageStyle} />
-        <Text style={[styles.text, this.props.textStyle]}>{this.props.text}</Text>
+        <Text style={[styles.title, item.titleStyle]}>{item.title}</Text>
+        <Image source={item.image} style={item.imageStyle} />
+        <Text style={[styles.text, item.textStyle]}>{item.text}</Text>
       </View>
     );
   }
