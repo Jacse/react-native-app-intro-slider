@@ -297,6 +297,9 @@ textStyle        | `Style`-prop        | Styling for the text (e.g color, fontSi
 image            | `Image`-source prop | Slide image
 imageStyle       | `Style`-prop        | Styling for the image (e.g. size)
 backgroundColor  | `string`            | Slide background color
+width            | `number`            | Slide width
+height           | `number`            | Slide height
+index            | `number`            | Slide index
 
 If you use a custom `renderItem`-method you can design your slide objects as you see fit.
 
