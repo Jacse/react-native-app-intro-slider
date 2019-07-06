@@ -64,18 +64,17 @@ export default class AppIntroSlider extends React.Component {
       this.props.onSlideChange(this.state.activeIndex - 1, this.state.activeIndex);
   };
 
-  _onPaginationPress = (index) => {
+  _onPaginationPress = index => {
     const activeIndexBeforeChange = this.state.activeIndex;
     this.goToSlide(index);
-    this.props.onSlideChange &&
-      this.props.onSlideChange(index, activeIndexBeforeChange);
+    this.props.onSlideChange && this.props.onSlideChange(index, activeIndexBeforeChange);
   };
 
-  _renderItem = (item) => {
+  _renderItem = flatListArgs => {
     const { width, height } = this.state;
-    const props = { ...item, dimensions: { width, height } };
+    const props = { ...flatListArgs, dimensions: { width, height } };
     return (
-      <View style={{ width: this.state.width, flex: 1 }}>
+      <View style={{ width, flex: 1 }}>
         {this.props.renderItem ? (
           this.props.renderItem(props)
         ) : (

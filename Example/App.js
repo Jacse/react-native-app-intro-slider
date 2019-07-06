@@ -58,30 +58,30 @@ const slides = [
 ];
 
 export default class App extends React.Component {
-  _renderItem = props => (
+  _renderItem = ({ item, dimensions }) => (
     <LinearGradient
       style={[
         styles.mainContent,
         {
-          paddingTop: props.topSpacer,
-          paddingBottom: props.bottomSpacer,
-          width: props.width,
-          height: props.height,
+          flex: 1,
+          paddingTop: item.topSpacer,
+          paddingBottom: item.bottomSpacer,
+          width: dimensions.width,
         },
       ]}
-      colors={props.colors}
+      colors={item.colors}
       start={{ x: 0, y: 0.1 }}
       end={{ x: 0.1, y: 1 }}
     >
       <Ionicons
         style={{ backgroundColor: 'transparent' }}
-        name={props.icon}
+        name={item.icon}
         size={200}
         color="white"
       />
       <View>
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.text}>{props.text}</Text>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.text}>{item.text}</Text>
       </View>
     </LinearGradient>
   );
