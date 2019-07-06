@@ -287,7 +287,7 @@ The component extends `FlatList` so all FlatList-props are valid.
 | onDone         | `function` | `void`                     | Called when user ends the introduction by pressing the done button                                                                                        |
 | onSkip         | `function` | Scroll the list to the end | Called when user presses the skip button                                                                                                                  |
 
-### Slide object
+#### Slide object
 
 If you want to use the default slide layout, your slides can contain the following information:
 
