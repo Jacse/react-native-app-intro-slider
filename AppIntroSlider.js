@@ -71,9 +71,9 @@ export default class AppIntroSlider extends React.Component {
       this.props.onSlideChange(index, activeIndexBeforeChange);
   };
 
-  _renderItem = item => {
+  _renderItem = (item) => {
     const { width, height } = this.state;
-    const props = { ...item.item, width, height };
+    const props = { ...item, dimensions: { width, height } };
     return (
       <View style={{ width: this.state.width, flex: 1 }}>
         {this.props.renderItem ? (

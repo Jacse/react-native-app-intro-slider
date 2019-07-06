@@ -285,8 +285,19 @@ Method Name | Arguments | Description
 goToSlide   | `number`  | Change to slide with specified index
 getListRef  | `none`    | Returns the Flat List ref
 
-### Slide object
+### RenderItem props
+
 If you use the default layout your object can furthermore contain:
+
+Name             | Type                | Note           
+-----------------|---------------------|---------------------
+item             | `Slide`             | Slide data
+index            | `number`            | Slide index
+dimensions       | `Dimensions`        | Slides' dimensions
+
+If you use a custom `renderItem`-method you can design your slide objects as you see fit.
+
+### Slide object
 
 Name             | Type                | Note           
 -----------------|---------------------|---------------------
@@ -298,7 +309,12 @@ image            | `Image`-source prop | Slide image
 imageStyle       | `Style`-prop        | Styling for the image (e.g. size)
 backgroundColor  | `string`            | Slide background color
 
-If you use a custom `renderItem`-method you can design your slide objects as you see fit.
+### Dimensions object
+
+Name             | Type                | Note           
+-----------------|---------------------|---------------------
+width            | `number`            | Slide width
+height           | `number`            | Slide height
 
 <h2 align="center">Example</h2>
 
