@@ -219,7 +219,7 @@ export default class App extends React.Component {
     <LinearGradient
       style={[
         styles.mainContent,
-        ...dimensions,
+        dimensions,
       ]}
       colors={item.colors}
       start={{ x: 0, y: 0.1 }}
