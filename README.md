@@ -64,7 +64,7 @@ export default class App extends React.Component {
   this.state = {
     showRealApp: false
   }
-  _renderItem = (item) => {
+  _renderItem = ({ item }) => {
     return (
       <View style={styles.slide}>
         <Text style={styles.title}>{item.title}</Text>
@@ -215,28 +215,25 @@ const slides = [
 ];
 
 export default class App extends React.Component {
-  _renderItem = props => (
+  _renderItem = ({ item, dimensions }) => (
     <LinearGradient
       style={[
         styles.mainContent,
-        {
-          width: props.width,
-          height: props.height,
-        },
+        ...dimensions,
       ]}
-      colors={props.colors}
+      colors={item.colors}
       start={{ x: 0, y: 0.1 }}
       end={{ x: 0.1, y: 1 }}
     >
       <Ionicons
         style={{ backgroundColor: 'transparent' }}
-        name={props.icon}
+        name={item.icon}
         size={200}
         color="white"
       />
       <View>
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.text}>{props.text}</Text>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.text}>{item.text}</Text>
       </View>
     </LinearGradient>
   );
