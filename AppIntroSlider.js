@@ -204,7 +204,7 @@ export default class AppIntroSlider extends React.Component {
           animated: false,
         });
       };
-      setTimeout(func, 0) : func();
+      setTimeout(func, 0);
     }
   };
 
