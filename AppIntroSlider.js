@@ -126,7 +126,7 @@ export default class AppIntroSlider extends React.Component {
         <TouchableOpacity
           onPress={onPress}
           style={this.props.bottomButton ? styles.flexOne : this.props.buttonStyle}
-          {testID(`button_${name}`)}
+          {...testID(`button_${name}`)}
         >
           {content}
         </TouchableOpacity>
@@ -170,7 +170,7 @@ export default class AppIntroSlider extends React.Component {
                     : this.props.dotStyle,
                 ]}
                 onPress={() => this._onPaginationPress(i)}
-                {testID(`page_${i}`)}
+                {...testID(`page_${i}`)}
               />
             ))}
         </View>
