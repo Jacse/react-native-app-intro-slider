@@ -36,6 +36,7 @@ export default class AppIntroSlider extends React.Component {
     paginationStyle: null,
     showDoneButton: true,
     showNextButton: true,
+    testId: testID => ({ testID }),
   };
   state = {
     width,
@@ -117,6 +118,7 @@ export default class AppIntroSlider extends React.Component {
   };
 
   _renderOuterButton = (content, name, onPress) => {
+    const { testId } = this.props;
     const style =
       name === 'Skip' || name === 'Prev' ? styles.leftButtonContainer : styles.rightButtonContainer;
     return (
@@ -124,6 +126,7 @@ export default class AppIntroSlider extends React.Component {
         <TouchableOpacity
           onPress={onPress}
           style={this.props.bottomButton ? styles.flexOne : this.props.buttonStyle}
+          {...testId(`button_${name}`)}
         >
           {content}
         </TouchableOpacity>
@@ -151,6 +154,8 @@ export default class AppIntroSlider extends React.Component {
       (!isFirstSlide && this._renderPrevButton()) || (!isLastSlide && this._renderSkipButton());
     const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();
 
+    const { testId } = this.props;
+
     return (
       <View style={[styles.paginationContainer, this.props.paginationStyle]}>
         <View style={styles.paginationDots}>
@@ -165,6 +170,7 @@ export default class AppIntroSlider extends React.Component {
                     : this.props.dotStyle,
                 ]}
                 onPress={() => this._onPaginationPress(i)}
+                {...testId(`page_${i}`)}
               />
             ))}
         </View>
