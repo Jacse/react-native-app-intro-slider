@@ -1,7 +1,20 @@
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, View, Text, Image, I18nManager } from 'react-native';
 import { LinearGradient } from 'expo';
+
+// If not using Expo:
+//  * Delete the Ionicons and LinearGradient import statements above
+//  * Install react-native-vector-icons and react-native-linear-gradient via:
+//           * npm i react-native-vector-icons react-native-linear-gradient packages --save
+//                     or
+//           * yarn add react-native-vector-icons react-native-linear-gradient
+//  * Uncomment the Ionicons and LinearGradient import statements below
+//   * run `pod install` for ios
+
+// import Ionicons from "react-native-vector-icons/Ionicons";
+// import LinearGradient from "react-native-linear-gradient";
+
+import { StyleSheet, View, Text, Image, I18nManager } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
 I18nManager.forceRTL(false);
