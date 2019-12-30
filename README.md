@@ -334,7 +334,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 You will, of course, need to install the react-native-vector-icons and react-native-linear-gradient packages via npm or yarn,  So either:
 ```sh
-npm i react-native-vector-icons react-native-linear-gradient packages --save
+npm i react-native-vector-icons react-native-linear-gradient --save
 ```
 
 or 
