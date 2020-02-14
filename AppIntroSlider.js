@@ -192,8 +192,8 @@ export default class AppIntroSlider extends React.Component {
     this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
   };
 
-  _onLayout = () => {
-    const { width, height } = Dimensions.get('window');
+  _onLayout = ({nativeEvent}) => {
+    const { width, height } = nativeEvent.layout;
     if (width !== this.state.width || height !== this.state.height) {
       // Set new width to update rendering of pages
       this.setState({ width, height });
@@ -237,7 +237,7 @@ export default class AppIntroSlider extends React.Component {
           style={styles.flatList}
           renderItem={this._renderItem}
           onMomentumScrollEnd={this._onMomentumScrollEnd}
-          extraData={this.state.width}
+          extraData={this.state}
           onLayout={this._onLayout}
           {...otherProps}
         />
