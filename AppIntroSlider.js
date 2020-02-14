@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import DefaultSlide from './DefaultSlide';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('screen');
 
 const isIphoneX =
   Platform.OS === 'ios' && !Platform.isPad && !Platform.isTVOS && (height === 812 || width === 812);
@@ -193,7 +193,8 @@ export default class AppIntroSlider extends React.Component {
   };
 
   _onLayout = ({nativeEvent}) => {
-    const { width, height } = nativeEvent.layout;
+    // const { width, height } = nativeEvent.layout;
+    const { width, height } = Dimensions.get('screen');
     if (width !== this.state.width || height !== this.state.height) {
       // Set new width to update rendering of pages
       this.setState({ width, height });
