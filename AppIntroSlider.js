@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
     bottom: 16 + (isIphoneX ? 34 : 0),
     left: 16,
     right: 16,
+    justifyContent: 'center'
   },
   paginationDots: {
     height: 16,
