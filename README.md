@@ -12,7 +12,7 @@ yarn add react-native-app-intro-slider
 
 | Basic                                          | `showSkipButton`                                               | `bottomButton` and `showSkipButton`                                |
 | ---------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------ |
-| ![Basic example gif](images/basic-example.gif) | ![showSkipButton example image](images/skipbutton-example.jpg) | ![bottomButton example image](images/bottomskipbutton-example.jpg) |
+| ![Basic example gif](Images/basic-example.gif) | ![showSkipButton example image](Images/skipbutton-example.jpg) | ![bottomButton example image](Images/bottomskipbutton-example.jpg) |
 
 The component is based on FlatList so usage is very similar. Pass a data-array to AppIntroSlider along with a `renderItem`-function:
 
@@ -75,7 +75,7 @@ export default class App extends React.Component {
 
 ### Configuring buttons
 
-![Button example gif](images/button-example.gif)
+![Button example gif](Images/button-example.gif)
 
 ```javascript
 import React from 'react';
@@ -187,5 +187,5 @@ The component extends `FlatList` so all FlatList-props are valid.
 * [Bottom buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/BottomButton/index.js)
 * [Cstom buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/CustomButton/index.js)
 * [Custom pagination with log in / sign up buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/CustomPagination/index.js)
-* [Full-size background images](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/FullBackgroundImage/index.js)
+* [Full-size background Images](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/FullBackgroundImage/index.js)
 * [RTL](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/RTL/index.js)
