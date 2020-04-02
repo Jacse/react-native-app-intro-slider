@@ -1,35 +1,20 @@
-<h1 align="center">react-native-app-intro-slider</h1>
+# react-native-app-intro-slider
 
-<p align="center">Easy-to-use yet very configurable app introduction slider/swiper based on FlatList</p>
+An easy-to-use yet very configurable app introduction slider/swiper based on FlatList that supports RTL.
 
 ```sh
-npm i react-native-app-intro-slider --save
+yarn add react-native-app-intro-slider
 ```
 
-|                                                  |                                                         |
-| ------------------------------------------------ | ------------------------------------------------------- |
-| ![Button example gif](Images/button-example.gif) | ![Custom layout example gif](Images/custom-example.gif) |
+## Usage
 
-## Table of contents
+### Simple examples
 
-- [Usage](#usage)
-  - [Basic Example](#basic-example)
-  - [Configuring Buttons](#configuring-buttons)
-  - [Custom Slide Layout](#custom-slide-layout)
-- [Props and options](#props-and-options)
-  - [Configure behaviour](#configure-behaviour)
-  - [Configure looks](#configure-looks)
-- [Example](#example)
-
-<h2 align="center">Usage</h2>
-
-### Basic example
-
-| No configuration                               | `showSkipButton`                                               | `bottomButton` and `showSkipButton`                                |
+| Basic                                          | `showSkipButton`                                               | `bottomButton` and `showSkipButton`                                |
 | ---------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------ |
 | ![Basic example gif](Images/basic-example.gif) | ![showSkipButton example image](Images/skipbutton-example.jpg) | ![bottomButton example image](Images/bottomskipbutton-example.jpg) |
 
-The component is based on FlatList so usage is very similar. Pass a data-array to AppIntroSlider along with a renderItem-function (or you can use the default basic layout).
+The component is based on FlatList so usage is very similar. Pass a data-array to AppIntroSlider along with a `renderItem`-function:
 
 ```javascript
 import React from 'react';
@@ -38,21 +23,21 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 
 const slides = [
   {
-    key: 'somethun',
+    key: 1,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
     image: require('./assets/1.jpg'),
     backgroundColor: '#59b2ab',
   },
   {
-    key: 'somethun-dos',
+    key: 2,
     title: 'Title 2',
     text: 'Other cool stuff',
     image: require('./assets/2.jpg'),
     backgroundColor: '#febe29',
   },
   {
-    key: 'somethun1',
+    key: 3,
     title: 'Rocket guy',
     text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
     image: require('./assets/3.jpg'),
@@ -82,7 +67,7 @@ export default class App extends React.Component {
     if (this.state.showRealApp) {
       return <App />;
     } else {
-      return <AppIntroSlider renderItem={this._renderItem} slides={slides} onDone={this._onDone}/>;
+      return <AppIntroSlider renderItem={this._renderItem} data={slides} onDone={this._onDone}/>;
     }
   }
 }
@@ -90,11 +75,11 @@ export default class App extends React.Component {
 
 ### Configuring buttons
 
-![Button example gif](Images/button-example.gif)
+![Basic example gif](Images/basic-example.gif)
 
 ```javascript
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { StyleSheet, View } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
@@ -107,23 +92,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  image: {
-    width: 320,
-    height: 320,
-  },
+  //[...]
 });
 
 // slides = [...]
 
 export default class App extends React.Component {
+  _renderItem = ({ item }) => {
+    return (
+      <View style={styles.slide}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Image source={item.image} />
+        <Text style={styles.text}>{item.text}</Text>
+      </View>
+    );
+  }
   _renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Ionicons
+        <Ion
           name="md-arrow-round-forward"
           color="rgba(255, 255, 255, .9)"
           size={24}
-          style={{ backgroundColor: 'transparent' }}
         />
       </View>
     );
@@ -131,11 +121,10 @@ export default class App extends React.Component {
   _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Ionicons
+        <Ion
           name="md-checkmark"
           color="rgba(255, 255, 255, .9)"
           size={24}
-          style={{ backgroundColor: 'transparent' }}
         />
       </View>
     );
@@ -143,7 +132,7 @@ export default class App extends React.Component {
   render() {
     return (
       <AppIntroSlider
-        slides={slides}
+        data={slides}
         renderDoneButton={this._renderDoneButton}
         renderNextButton={this._renderNextButton}
       />
@@ -152,151 +141,38 @@ export default class App extends React.Component {
 }
 ```
 
-### Custom slide layout
-
-![Custom layout example gif](Images/custom-example.gif)
-
-```js
-import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import { LinearGradient } from 'expo';
-import AppIntroSlider from 'react-native-app-intro-slider';
-
-const styles = StyleSheet.create({
-  mainContent: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  image: {
-    width: 320,
-    height: 320,
-  },
-  text: {
-    color: 'rgba(255, 255, 255, 0.8)',
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    paddingHorizontal: 16,
-  },
-  title: {
-    fontSize: 22,
-    color: 'white',
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-});
-
-const slides = [
-  {
-    key: 'somethun',
-    title: 'Quick setup, good defaults',
-    text:
-      'React-native-app-intro-slider is easy to setup with a small footprint and no dependencies. And it comes with good default layouts!',
-    icon: 'ios-images-outline',
-    colors: ['#63E2FF', '#B066FE'],
-  },
-  {
-    key: 'somethun1',
-    title: 'Super customizable',
-    text:
-      'The component is also super customizable, so you can adapt it to cover your needs and wants.',
-    icon: 'ios-options-outline',
-    colors: ['#A3A1FF', '#3A3897'],
-  },
-  {
-    key: 'somethun2',
-    title: 'No need to buy me beer',
-    text: 'Usage is all free',
-    icon: 'ios-beer-outline',
-    colors: ['#29ABE2', '#4F00BC'],
-  },
-];
-
-export default class App extends React.Component {
-  _renderItem = ({ item, dimensions }) => (
-    <LinearGradient
-      style={[
-        styles.mainContent,
-        dimensions,
-      ]}
-      colors={item.colors}
-      start={{ x: 0, y: 0.1 }}
-      end={{ x: 0.1, y: 1 }}
-    >
-      <Ionicons
-        style={{ backgroundColor: 'transparent' }}
-        name={item.icon}
-        size={200}
-        color="white"
-      />
-      <View>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.text}>{item.text}</Text>
-      </View>
-    </LinearGradient>
-  );
-
-  render() {
-    return <AppIntroSlider slides={slides} renderItem={this._renderItem} bottomButton />;
-  }
-}
-```
 
 Here a custom `renderItem` is supplied and the `bottomButton`-props has been set to `true`. Notice how the setup of `slides` has been configured to support icons and gradient backgrounds.
 
-<h2 align="center">Props and options</h2>
+## Props and methods
 
 The component extends `FlatList` so all FlatList-props are valid.
 
-### Configure looks
+### Props
 
 | Name             | Type       | Default                                      | Description                                                                                                                                                                                      |
 | ---------------- | ---------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| data             | `object`   | None, required                               | An array of objects (they should either contain a unique `key`-prop or you should pass a `keyExtractor`-function to the component)                                                               |
+| renderItem       | `function` | None, required                               | (FlatList's renderItem)[https://facebook.github.io/react-native/docs/flatlist.html#renderitem]. Receives `({item, index, dimensions})` where `dimensions` contains height and width of the slides  |
+| onSlideChange    | `function` | `void`                                       | Called when user goes changes slide (by swiping or pressing next/prev). Function called with arguments `(index: number, lastIndex: number)`                                                        |
+| renderPagination | `function` |                                              | Function to render a custom pagination/button component on top of slides. Receives the index of the currently active slide                                                                       |
+| onDone           | `function` | `void`                                       | Called when user ends the introduction by pressing the done button                                                                                                                               |
+| onSkip           | `function` | Scrolls to the end                           | Called when user presses the skip button                                                                                                                                                         |
+| bottomButton     | `boolean`  | `false`                                      | Enable to show a full-width button under pagination                                                                                                                                              |
+| dotStyle         | `style`    | {backgroundColor: 'rgba(0, 0, 0, .2)'}       | Style of inactive pagination dots                                                                                                                                                                |
+| activeDotStyle   | `style`    | {backgroundColor: 'rgba(255, 255, 255, .9)'} | Style of active pagination dot                                                                                                                                                                   |
 | skipLabel        | `string`   | `Skip`                                       | Custom label for Skip button                                                                                                                                                                     |
 | doneLabel        | `string`   | `Done`                                       | Custom label for Done button                                                                                                                                                                     |
 | nextLabel        | `string`   | `Next`                                       | Custom label for Next button                                                                                                                                                                     |
 | prevLabel        | `string`   | `Back`                                       | Custom label for Prev button                                                                                                                                                                     |
-| bottomButton     | `boolean`  | `false`                                      | Enable to show a full-width button under pagination                                                                                                                                              |
-| buttonStyle      | `style`    | `null`                                       | Styling of outer button component                                                                                                                                                                |
-| buttonTextStyle  | `style`    | `null`                                       | Styling of button text component                                                                                                                                                                 |
-| dotStyle         | `style`    | {backgroundColor: 'rgba(0, 0, 0, .2)'}       | Style of inactive pagination dots                                                                                                                                                                |
-| activeDotStyle   | `style`    | {backgroundColor: 'rgba(255, 255, 255, .9)'} | Style of active pagination dot                                                                                                                                                                   |
-| paginationStyle  | `style`    | `null`                                       | Styling of the pagination dots                                                                                                                                                                   |
-| hidePagination   | `boolean`  | `false`                                      | Enable to hide the pagination                                                                                                                                                                    |
+| showSkipButton   | `boolean`  | `false`                                      | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button                                        |
+| showPrevButton   | `boolean`  | `false`                                      | Enable to show a previous button. If `showSkipButton` is true, the skip button will be displayed on the first page and prev button on subsequent one                                             |
+| showNextButton   | `boolean`  | `true`                                       | Disable to hide the next button                                                                                                                                                                  |
+| showDoneButton   | `boolean`  | `true`                                       | Disable to hide the done button                                                                                                                                                                  |
 | renderNextButton | `function` | renders a Text-component                     | Use to supply your own next button                                                                                                                                                               |
 | renderPrevButton | `function` | renders a Text-component                     | Use to supply your own prev button                                                                                                                                                               |
 | renderDoneButton | `function` | renders a Text-component                     | Use to supply your own done button                                                                                                                                                               |
 | renderSkipButton | `function` | renders a Text-component                     | Use to supply your own skip button                                                                                                                                                               |
-| renderItem       | `function` | renders `DefaultSlide`                       | (FlatList's renderItem)[https://facebook.github.io/react-native/docs/flatlist.html#renderitem]. Receives `{item, index, dimensions}` where `dimensions` contains height and width of the slides. |
-
-### Configure behavior
-
-| Name           | Type       | Default                    | Description                                                                                                                                               |
-| -------------- | ---------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| slides         | `object`   | No default, required       | An array of objects (they should either contain a unique `key`-prop or you should pass a `keyExtractor`-function to the component)                        |
-| showSkipButton | `boolean`  | `false`                    | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button |
-| showPrevButton | `boolean`  | `false`                    | Enable to show a previous button. If `showSkipButton` is true, the skip button will be displayed on the first page and prev button on subsequent one      |
-| showNextButton | `boolean`  | `true`                     | Disable to hide the next button                                                                                                                           |
-| showDoneButton | `boolean`  | `true`                     | Disable to hide the done button                                                                                                                           |
-| onSlideChange  | `function` | `void`                     | Called when user goes changes slide (by swiping or pressing next/prev). Function called with arguments `index: number, lastIndex: number`                 |
-| onDone         | `function` | `void`                     | Called when user ends the introduction by pressing the done button                                                                                        |
-| onSkip         | `function` | Scroll the list to the end | Called when user presses the skip button                                                                                                                  |
-
-#### Slide object
-
-If you want to use the default slide layout, your slides can contain the following information:
-
-| Name            | Type                | Note                                        |
-| --------------- | ------------------- | ------------------------------------------- |
-| title           | `string`            | The title                                   |
-| titleStyle      | `Style`-prop        | Styling for the title (e.g color, fontSize) |
-| text            | `string`            | Main text of slide                          |
-| textStyle       | `Style`-prop        | Styling for the text (e.g color, fontSize)  |
-| image           | `Image`-source prop | Slide image                                 |
-| imageStyle      | `Style`-prop        | Styling for the image (e.g. size)           |
-| backgroundColor | `string`            | Slide background color                      |
 
 ### Methods
 
@@ -305,41 +181,11 @@ If you want to use the default slide layout, your slides can contain the followi
 | goToSlide   | `number`  | Change to slide with specified index |
 | getListRef  | `none`    | Returns the Flat List ref            |
 
-<h2 align="center">Example</h2>
 
-You can run the example Expo-app by cloning the repo:
-
-```sh
-git clone https://github.com/Jacse/react-native-app-intro-slider.git
-cd react-native-app-intro-slider/Example
-yarn
-yarn start
-```
-
-
-## Not Using Expo
-If you're not using Expo then you will need to replace Expo versions of some npm packages with the "standard" ones.
-
-For example, instead of these Expo imports from the Example code:
-```javascript
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo';
-```
-
-you can use these:
-```javascript
-import Ionicons from "react-native-vector-icons/Ionicons";
-import LinearGradient from "react-native-linear-gradient";
-```
-
-You will, of course, need to install the react-native-vector-icons and react-native-linear-gradient packages via npm or yarn,  So either:
-```sh
-npm i react-native-vector-icons react-native-linear-gradient --save
-```
-
-or 
-```sh
-yarn add react-native-vector-icons react-native-linear-gradient
-```
-
-For ios you will also need to rerun your `pod install` command after installing react-native-linear-gradient.
+## Examples
+* [Basic](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/Basic/index.js)
+* [Bottom buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/BottomButton/index.js)
+* [Cstom buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/CustomButton/index.js)
+* [Custom pagination with log in / sign up buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/CustomPagination/index.js)
+* [Full-size background images](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/FullBackgroundImage/index.js)
+* [RTL](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/RTL/index.js)
