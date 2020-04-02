@@ -12,7 +12,7 @@ yarn add react-native-app-intro-slider
 
 | Basic                                          | `showSkipButton`                                               | `bottomButton` and `showSkipButton`                                |
 | ---------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------ |
-| ![Basic example gif](Images/basic-example.gif) | ![showSkipButton example image](Images/skipbutton-example.jpg) | ![bottomButton example image](Images/bottomskipbutton-example.jpg) |
+| ![Basic example gif](images/basic-example.gif) | ![showSkipButton example image](images/skipbutton-example.jpg) | ![bottomButton example image](images/bottomskipbutton-example.jpg) |
 
 The component is based on FlatList so usage is very similar. Pass a data-array to AppIntroSlider along with a `renderItem`-function:
 
@@ -75,7 +75,7 @@ export default class App extends React.Component {
 
 ### Configuring buttons
 
-![Basic example gif](Images/basic-example.gif)
+![Button example gif](images/button-example.gif)
 
 ```javascript
 import React from 'react';
