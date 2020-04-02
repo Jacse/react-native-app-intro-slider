@@ -315,3 +315,31 @@ cd react-native-app-intro-slider/Example
 yarn
 yarn start
 ```
+
+
+## Not Using Expo
+If you're not using Expo then you will need to replace Expo versions of some npm packages with the "standard" ones.
+
+For example, instead of these Expo imports from the Example code:
+```javascript
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo';
+```
+
+you can use these:
+```javascript
+import Ionicons from "react-native-vector-icons/Ionicons";
+import LinearGradient from "react-native-linear-gradient";
+```
+
+You will, of course, need to install the react-native-vector-icons and react-native-linear-gradient packages via npm or yarn,  So either:
+```sh
+npm i react-native-vector-icons react-native-linear-gradient --save
+```
+
+or 
+```sh
+yarn add react-native-vector-icons react-native-linear-gradient
+```
+
+For ios you will also need to rerun your `pod install` command after installing react-native-linear-gradient.
