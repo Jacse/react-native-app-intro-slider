@@ -204,7 +204,7 @@ export default class AppIntroSlider extends React.Component {
           animated: false,
         });
       };
-      Platform.OS === 'android' ? setTimeout(func, 0) : func();
+      setTimeout(func, 0);
     }
   };
 
