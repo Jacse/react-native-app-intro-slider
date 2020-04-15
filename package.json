@@ -9,8 +9,8 @@
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "format": "prettier --write src",
     "test": "echo 'no tests yet'",
-    "prepublishOnly": "yarn run lint && yarn run format",
-    "version": "npm run format && git add -A src",
+    "prepublishOnly": "yarn run build && yarn run lint && yarn run format",
+    "version": "yarn run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "repository": {
