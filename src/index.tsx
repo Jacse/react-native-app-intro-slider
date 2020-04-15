@@ -31,6 +31,7 @@ type Props<ItemT> = {
   renderPagination?: (activeIndex: number) => React.ReactNode;
   activeDotStyle: ViewStyle;
   dotStyle: ViewStyle;
+  dotClickEnabled: boolean;
   skipLabel: string;
   doneLabel: string;
   nextLabel: string;
@@ -59,6 +60,7 @@ export default class AppIntroSlider<ItemT> extends React.Component<
     dotStyle: {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
+    dotClickEnabled: true,
     skipLabel: 'Skip',
     doneLabel: 'Done',
     nextLabel: 'Next',
@@ -203,18 +205,30 @@ export default class AppIntroSlider<ItemT> extends React.Component<
         <SafeAreaView>
           <View style={styles.paginationDots}>
             {this.props.data.length > 1 &&
-              this.props.data.map((_, i) => (
-                <TouchableOpacity
-                  key={i}
-                  style={[
-                    styles.dot,
-                    this._rtlSafeIndex(i) === this.state.activeIndex
-                      ? this.props.activeDotStyle
-                      : this.props.dotStyle,
-                  ]}
-                  onPress={() => this.goToSlide(i, true)}
-                />
-              ))}
+              this.props.data.map((_, i) =>
+                this.props.dotClickEnabled ? (
+                  <TouchableOpacity
+                    key={i}
+                    style={[
+                      styles.dot,
+                      this._rtlSafeIndex(i) === this.state.activeIndex
+                        ? this.props.activeDotStyle
+                        : this.props.dotStyle,
+                    ]}
+                    onPress={() => this.goToSlide(i, true)}
+                  />
+                ) : (
+                  <View
+                    key={i}
+                    style={[
+                      styles.dot,
+                      this._rtlSafeIndex(i) === this.state.activeIndex
+                        ? this.props.activeDotStyle
+                        : this.props.dotStyle,
+                    ]}
+                  />
+                ),
+              )}
           </View>
           {primaryButton}
           {secondaryButton}
