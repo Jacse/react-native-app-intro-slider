@@ -14,6 +14,7 @@ import {
   GestureResponderEvent,
   LayoutChangeEvent,
 } from 'react-native';
+import mergeExtraData from './merge-extradata';
 
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
@@ -267,9 +268,13 @@ export default class AppIntroSlider<ItemT> extends React.Component<
       prevLabel,
       renderItem,
       data,
+      extraData,
       ...otherProps
     } = this.props;
     /* eslint-enable @typescript-eslint/no-unused-vars */
+
+    // Merge component width and user-defined extraData
+    const extra = mergeExtraData(extraData, this.state.width);
 
     return (
       <View style={styles.flexOne}>
@@ -283,7 +288,7 @@ export default class AppIntroSlider<ItemT> extends React.Component<
           style={styles.flatList}
           renderItem={this._renderItem}
           onMomentumScrollEnd={this._onMomentumScrollEnd}
-          extraData={this.state.width}
+          extraData={extra}
           onLayout={this._onLayout}
           // make sure all slides are rendered so we can use dots to navigate to them
           initialNumToRender={data.length}
