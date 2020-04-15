@@ -177,6 +177,7 @@ const styles = react_native_1.StyleSheet.create({
         bottom: 16,
         left: 16,
         right: 16,
+        justifyContent: 'center',
     },
     paginationDots: {
         height: 16,

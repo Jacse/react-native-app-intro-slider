@@ -9,7 +9,8 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true,
   },
   "include": ["src"],
   "exclude": ["**/__tests__/*"]

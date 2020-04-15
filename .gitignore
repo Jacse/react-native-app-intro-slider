@@ -52,3 +52,6 @@ experimental/
 
 # Expo
 .expo/
+
+# Typescript
+dist/
