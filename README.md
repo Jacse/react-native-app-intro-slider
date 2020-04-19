@@ -186,7 +186,7 @@ The component extends `FlatList` so all FlatList-props are valid.
 ## Examples
 * [Basic](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/Basic/index.js)
 * [Bottom buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/BottomButton/index.js)
-* [Custom buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/CustomButton/index.js)
+* [Custom buttons](https://github.com/Jacse/react-native-app-intro-slider/blob/master/examples/examples/CustomButtons/index.js)
 * [Custom pagination with log in / sign up buttons](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/CustomPagination/index.js)
 * [Full-size background Images](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/FullBackgroundImage/index.js)
 * [RTL](https://github.com/Jacse/react-native-app-intro-slider/tree/master/examples/examples/RTL/index.js)
