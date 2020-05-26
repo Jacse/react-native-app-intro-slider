@@ -31,6 +31,8 @@ const data = [
   },
 ];
 
+type Item = typeof data[0];
+
 const styles = StyleSheet.create({
   slide: {
     flex: 1,
@@ -90,7 +92,8 @@ const styles = StyleSheet.create({
 });
 
 export default class App extends React.Component {
-  _renderItem = ({item}) => {
+  slider: AppIntroSlider | undefined;
+  _renderItem = ({item}: {item: Item}) => {
     return (
       <View
         style={[
@@ -106,9 +109,9 @@ export default class App extends React.Component {
     );
   };
 
-  _keyExtractor = (item) => item.title;
+  _keyExtractor = (item: Item) => item.title;
 
-  _renderPagination = (activeIndex) => {
+  _renderPagination = (activeIndex: number) => {
     return (
       <View style={styles.paginationContainer}>
         <SafeAreaView>
@@ -123,7 +126,7 @@ export default class App extends React.Component {
                       ? {backgroundColor: 'white'}
                       : {backgroundColor: 'rgba(0, 0, 0, .2)'},
                   ]}
-                  onPress={() => this.goToSlide(i, true)}
+                  onPress={() => this.slider?.goToSlide(i, true)}
                 />
               ))}
           </View>
@@ -150,6 +153,7 @@ export default class App extends React.Component {
           renderItem={this._renderItem}
           renderPagination={this._renderPagination}
           data={data}
+          ref={(ref) => (this.slider = ref!)}
         />
       </View>
     );

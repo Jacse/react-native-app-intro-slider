@@ -23,6 +23,8 @@ const data = [
   },
 ];
 
+type Item = typeof data[0];
+
 const styles = StyleSheet.create({
   slide: {
     flex: 1,
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
 });
 
 export default class App extends React.Component {
-  _renderItem = ({item}) => {
+  _renderItem = ({item}: {item: Item}) => {
     return (
       <View
         style={[
@@ -63,7 +65,7 @@ export default class App extends React.Component {
     );
   };
 
-  _keyExtractor = (item) => item.title;
+  _keyExtractor = (item: Item) => item.title;
 
   render() {
     return (

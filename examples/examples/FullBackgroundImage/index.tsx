@@ -17,6 +17,8 @@ const data = [
   },
 ];
 
+type Item = typeof data[0];
+
 const styles = StyleSheet.create({
   slide: {
     flex: 1,
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
 });
 
 export default class App extends React.Component {
-  _renderItem = ({item}) => {
+  _renderItem = ({item}: {item: Item}) => {
     return (
       <ImageBackground style={styles.slide} source={item.image}>
         <Text style={styles.text}>{item.text}</Text>
@@ -38,7 +40,7 @@ export default class App extends React.Component {
     );
   };
 
-  _keyExtractor = (item) => item.text;
+  _keyExtractor = (item: Item) => item.text;
 
   render() {
     return (
