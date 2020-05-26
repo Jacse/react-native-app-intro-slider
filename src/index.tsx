@@ -13,6 +13,7 @@ import {
   NativeScrollEvent,
   GestureResponderEvent,
   LayoutChangeEvent,
+  ListRenderItemInfo,
 } from 'react-native';
 import mergeExtraData from './merge-extradata';
 
@@ -20,7 +21,11 @@ const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
 type Props<ItemT> = {
   data: ItemT[];
-  renderItem: (a: any) => React.ReactNode;
+  renderItem: (
+    info: ListRenderItemInfo<ItemT> & {
+      dimensions: {width: number; height: number};
+    },
+  ) => React.ReactNode;
   renderSkipButton?: () => React.ReactNode;
   renderNextButton?: () => React.ReactNode;
   renderDoneButton?: () => React.ReactNode;
@@ -49,7 +54,7 @@ type State = {
   activeIndex: number;
 };
 
-export default class AppIntroSlider<ItemT> extends React.Component<
+export default class AppIntroSlider<ItemT = any> extends React.Component<
   Props<ItemT>,
   State
 > {
@@ -67,6 +72,8 @@ export default class AppIntroSlider<ItemT> extends React.Component<
     prevLabel: 'Back',
     showDoneButton: true,
     showNextButton: true,
+    showPrevButton: false,
+    showSkipButton: false,
     bottomButton: false,
   };
   state = {
@@ -74,7 +81,7 @@ export default class AppIntroSlider<ItemT> extends React.Component<
     height: 0,
     activeIndex: 0,
   };
-  flatList: FlatList | undefined;
+  flatList: FlatList<ItemT> | undefined;
 
   goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
     const prevNum = this.state.activeIndex;
