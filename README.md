@@ -121,7 +121,7 @@ export default class App extends React.Component {
   _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Ion
+        <Icon
           name="md-checkmark"
           color="rgba(255, 255, 255, .9)"
           size={24}
