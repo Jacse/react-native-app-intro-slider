@@ -46,8 +46,10 @@ const slides = [
 ];
 
 export default class App extends React.Component {
-  this.state = {
-    showRealApp: false
+  constructor(){
+    this.state = {
+      showRealApp: false
+    }
   }
   _renderItem = ({ item }) => {
     return (
@@ -79,7 +81,7 @@ export default class App extends React.Component {
 
 ```javascript
 import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ion from 'react-native-vector-icons/Ionicons';
 import { StyleSheet, View } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
@@ -121,7 +123,7 @@ export default class App extends React.Component {
   _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Icon
+        <Ion
           name="md-checkmark"
           color="rgba(255, 255, 255, .9)"
           size={24}
