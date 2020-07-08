@@ -46,8 +46,10 @@ const slides = [
 ];
 
 export default class App extends React.Component {
-  this.state = {
-    showRealApp: false
+  constructor(){
+    this.state = {
+      showRealApp: false
+    }
   }
   _renderItem = ({ item }) => {
     return (
@@ -110,7 +112,7 @@ export default class App extends React.Component {
   _renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Ion
+        <Icon
           name="md-arrow-round-forward"
           color="rgba(255, 255, 255, .9)"
           size={24}
