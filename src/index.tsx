@@ -312,7 +312,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
           extraData={extra}
           onLayout={this._onLayout}
           // make sure all slides are rendered so we can use dots to navigate to them
-          initialNumToRender={data.length}
+          initialNumToRender={this.props.lazy?1:data.length}
+          maxToRenderPerBatch={this.props.lazy?1:10}
           {...otherProps}
         />
         {renderPagination

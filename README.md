@@ -174,6 +174,7 @@ The component extends `FlatList` so all FlatList-props are valid.
 | renderPrevButton | `function` | renders a Text-component                     | Use to supply your own prev button . Has no effect if using `renderPagination`                                                                                                                                                              |
 | renderDoneButton | `function` | renders a Text-component                     | Use to supply your own done button. Has no effect if using `renderPagination`                                                                                                                                                               |
 | renderSkipButton | `function` | renders a Text-component                     | Use to supply your own skip button. Has no effect if using `renderPagination`                                                                                                                                                              |
+| lazy | `boolean` | false                     | Render single screen at a time if true (for optimization purpose)                                                                                                                                                              |
 
 ### Methods
 
