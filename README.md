@@ -110,7 +110,7 @@ export default class App extends React.Component {
   _renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Ion
+        <Icon
           name="md-arrow-round-forward"
           color="rgba(255, 255, 255, .9)"
           size={24}
