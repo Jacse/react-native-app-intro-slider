@@ -209,7 +209,11 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       : this._renderNextButton();
 
     return (
-      <View style={[styles.paginationContainer, this.props.paginationContainerStyle]}>
+      <View
+        style={[
+          styles.paginationContainer,
+          this.props.paginationContainerStyle,
+        ]}>
         <SafeAreaView>
           <View style={styles.paginationDots}>
             {this.props.data.length > 1 &&
