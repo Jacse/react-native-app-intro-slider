@@ -133,6 +133,7 @@ export default class App extends React.Component {
     return (
       <AppIntroSlider
         data={slides}
+        renderItem={this._renderItem}
         renderDoneButton={this._renderDoneButton}
         renderNextButton={this._renderNextButton}
       />
