@@ -14,10 +14,13 @@ import {
   GestureResponderEvent,
   LayoutChangeEvent,
   ListRenderItemInfo,
+  Dimensions,
 } from 'react-native';
 import mergeExtraData from './merge-extradata';
 
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
+const { width, height } = Dimensions.get('window');
+
 
 type Props<ItemT> = {
   data: ItemT[];
@@ -77,8 +80,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     bottomButton: false,
   };
   state = {
-    width: 0,
-    height: 0,
+    width,
+    height,
     activeIndex: 0,
   };
   flatList: FlatList<ItemT> | undefined;
@@ -260,8 +263,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
   };
 
-  _onLayout = ({nativeEvent}: LayoutChangeEvent) => {
-    const {width, height} = nativeEvent.layout;
+  _onLayout = () => {
+    const { width, height } = Dimensions.get('window');
     if (width !== this.state.width || height !== this.state.height) {
       // Set new width to update rendering of pages
       this.setState({width, height});
