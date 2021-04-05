@@ -14,6 +14,7 @@ import {
   GestureResponderEvent,
   LayoutChangeEvent,
   ListRenderItemInfo,
+  Dimensions,
 } from 'react-native';
 import mergeExtraData from './merge-extradata';
 
@@ -77,8 +78,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     bottomButton: false,
   };
   state = {
-    width: 0,
-    height: 0,
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
     activeIndex: 0,
   };
   flatList: FlatList<ItemT> | undefined;
