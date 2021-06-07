@@ -1,3 +1,7 @@
+## Disclaimer
+
+Don't use this. I may delete this in the future if the PR to customize the bottom dots and buttons background gets accepted in the original repository.
+
 # react-native-app-intro-slider
 
 An easy-to-use yet very configurable app introduction slider/swiper based on FlatList that supports RTL.

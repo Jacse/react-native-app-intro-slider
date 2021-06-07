@@ -146,6 +146,9 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       name === 'Skip' || name === 'Prev'
         ? styles.leftButtonContainer
         : styles.rightButtonContainer;
+    if (this.props.renderNextButton) {
+      return content;
+    }
     return (
       <View style={!this.props.bottomButton && style}>
         <TouchableOpacity

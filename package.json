@@ -1,6 +1,6 @@
 {
-  "name": "react-native-app-intro-slider",
-  "version": "4.0.4",
+  "name": "react-native-app-intro-slider-with-bgstyle",
+  "version": "4.0.6",
   "description": "Simple and configurable app introduction slider for react native",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
