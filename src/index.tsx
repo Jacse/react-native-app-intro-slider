@@ -46,6 +46,7 @@ type Props<ItemT> = {
   showPrevButton: boolean;
   showSkipButton: boolean;
   bottomButton: boolean;
+  paginationContainerStyle: ViewStyle;
 } & FlatListProps<ItemT>;
 
 type State = {
@@ -145,6 +146,9 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       name === 'Skip' || name === 'Prev'
         ? styles.leftButtonContainer
         : styles.rightButtonContainer;
+    if (this.props.renderNextButton) {
+      return content;
+    }
     return (
       <View style={!this.props.bottomButton && style}>
         <TouchableOpacity
@@ -208,7 +212,11 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       : this._renderNextButton();
 
     return (
-      <View style={styles.paginationContainer}>
+      <View
+        style={[
+          styles.paginationContainer,
+          this.props.paginationContainerStyle,
+        ]}>
         <SafeAreaView>
           <View style={styles.paginationDots}>
             {this.props.data.length > 1 &&
