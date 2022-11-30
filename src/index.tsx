@@ -14,6 +14,7 @@ import {
   GestureResponderEvent,
   LayoutChangeEvent,
   ListRenderItemInfo,
+  TextStyle,
 } from 'react-native';
 import mergeExtraData from './merge-extradata';
 
@@ -35,6 +36,7 @@ type Props<ItemT> = {
   onDone?: () => void;
   renderPagination?: (activeIndex: number) => React.ReactNode;
   activeDotStyle: ViewStyle;
+  buttonTextStyle?: TextStyle;
   dotStyle: ViewStyle;
   dotClickEnabled: boolean;
   skipLabel: string;
@@ -120,7 +122,11 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   };
 
   _renderDefaultButton = (name: string, label: string) => {
-    let content = <Text style={styles.buttonText}>{label}</Text>;
+    let content = (
+      <Text style={[styles.buttonText, this.props.buttonTextStyle]}>
+        {label}
+      </Text>
+    );
     if (this.props.bottomButton) {
       content = (
         <View
