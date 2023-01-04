@@ -1,9 +1,12 @@
 {
-  "name": "react-native-app-intro-slider",
-  "version": "4.0.4",
+  "name": "@unbogify/react-native-app-intro-slider",
+  "version": "4.0.4-unbogify.0",
   "description": "Simple and configurable app introduction slider for react native",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
