@@ -47,6 +47,7 @@ type Props<ItemT> = {
     showSkipButton: boolean;
     bottomButton: boolean;
     renderVertically: boolean;
+    autoPlay: boolean
 } & FlatListProps<ItemT>;
 
 type State = {
@@ -76,7 +77,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
         showPrevButton: false,
         showSkipButton: false,
         bottomButton: false,
-        renderVertically: false
+        renderVertically: false,
+        autoPlay: false
     };
     state = {
         width: 0,
@@ -84,6 +86,28 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
         activeIndex: 0,
     };
     flatList: FlatList<ItemT> | undefined;
+    activeInterval: any;
+
+    componentDidMount() {
+        if (this.props.autoPlay) this.startScroll();
+    }
+
+    // Clear interval when user closes
+    componentWillUnmount() {
+        clearInterval(this.activeInterval);
+    }
+
+    startScroll() {
+        this.activeInterval = setInterval(this.scrolling, 2000);
+    }
+
+    scrolling = () => {
+        if (this.state.activeIndex < this.props.data.length - 1) {
+            this.goToSlide(this.state.activeIndex + 1)
+        } else {
+            clearInterval(this.activeInterval);
+        }
+    }
 
     goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
         if (this.props.renderVertically) {
