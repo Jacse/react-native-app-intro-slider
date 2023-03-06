@@ -19,6 +19,13 @@ import mergeExtraData from './merge-extradata';
 
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
+type OrientationType = "horizontal" | "vertical"
+
+const Orientations = {
+  horizontal: "horizontal",
+  vertical: "vertical"
+}
+
 type Props<ItemT> = {
   data: ItemT[];
   renderItem: (
@@ -46,8 +53,8 @@ type Props<ItemT> = {
   showPrevButton: boolean;
   showSkipButton: boolean;
   bottomButton: boolean;
-  renderVertically: boolean;
-  autoPlay: boolean
+  orientation: OrientationType;
+  autoPlay: boolean,
 } & FlatListProps<ItemT>;
 
 type State = {
@@ -77,7 +84,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     showPrevButton: false,
     showSkipButton: false,
     bottomButton: false,
-    renderVertically: false,
+    orientation: Orientations.horizontal,
     autoPlay: false
   };
   state = {
@@ -98,10 +105,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   }
 
   startScroll() {
-    this.activeInterval = setInterval(this.scrolling, 2000);
+    this.activeInterval = setInterval(this.scroll, 2000);
   }
 
-  scrolling = () => {
+  scroll = () => {
     if (this.state.activeIndex < this.props.data.length - 1) {
       this.goToSlide(this.state.activeIndex + 1)
     } else {
@@ -110,34 +117,18 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   }
 
   goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
-    if (this.props.renderVertically) {
-      this.goToSlideV(pageNum, triggerOnSlideChange)
-    }
-    else {
-      this.goToSlideH(pageNum, triggerOnSlideChange)
+    const sizeOfSlide = this.props.orientation === Orientations.horizontal
+        ? this.state.width
+        : this.state.height
+    const prevNum = this.state.activeIndex;
+    this.setState({ activeIndex: pageNum });
+    this.flatList?.scrollToOffset({
+        offset: this._rtlSafeIndex(pageNum) * sizeOfSlide,
+    });
+    if (triggerOnSlideChange && this.props.onSlideChange) {
+      this.props.onSlideChange(pageNum, prevNum);
     }
   }
-
-  goToSlideH = (pageNum: number, triggerOnSlideChange?: boolean) => {
-    const prevNum = this.state.activeIndex;
-    this.setState({ activeIndex: pageNum });
-    this.flatList?.scrollToOffset({
-      offset: this._rtlSafeIndex(pageNum) * this.state.width,
-    });
-    if (triggerOnSlideChange && this.props.onSlideChange) {
-      this.props.onSlideChange(pageNum, prevNum);
-    }
-  };
-  goToSlideV = (pageNum: number, triggerOnSlideChange?: boolean) => {
-    const prevNum = this.state.activeIndex;
-    this.setState({ activeIndex: pageNum });
-    this.flatList?.scrollToOffset({
-      offset: this._rtlSafeIndex(pageNum) * this.state.height,
-    });
-    if (triggerOnSlideChange && this.props.onSlideChange) {
-      this.props.onSlideChange(pageNum, prevNum);
-    }
-  };
 
   // Get the list ref
   getListRef = () => this.flatList;
@@ -186,10 +177,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     name: string,
     onPress?: (e: GestureResponderEvent) => void,
   ) => {
-    const leftButtonStyle = this.props.renderVertically
+    const leftButtonStyle = this.props.orientation === Orientations.vertical
       ? styles.topButtonContainer
       : styles.leftButtonContainer
-    const rightButtonStyle = this.props.renderVertically
+    const rightButtonStyle = this.props.orientation === Orientations.vertical
       ? styles.bottomButtonContainer
       : styles.rightButtonContainer
     const style =
@@ -229,10 +220,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   _renderDoneButton = () =>
     this.props.showDoneButton &&
     this._renderButton(
-      'Done',
-      this.props.doneLabel,
-      this.props.onDone,
-      this.props.renderDoneButton,
+        'Done',
+        this.props.doneLabel,
+        this.props.onDone,
+        this.props.renderDoneButton,
     );
 
   _renderSkipButton = () =>
@@ -258,16 +249,16 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     const primaryButton = isLastSlide
       ? this._renderDoneButton()
       : this._renderNextButton();
-    const containerStyle = this.props.renderVertically
+    const containerStyle = this.props.orientation === Orientations.vertical
       ? styles.paginationContainerV
       : styles.paginationContainerH
-    const paginationSafeArea = this.props.renderVertically
+    const paginationSafeArea = this.props.orientation === Orientations.vertical
       ? styles.paginationSafeAreaV
       : styles.paginationSafeAreaH
-    const dotsContainerStyle = this.props.renderVertically
+    const dotsContainerStyle = this.props.orientation === Orientations.vertical
       ? styles.paginationDotsV
       : styles.paginationDotsH
-    const dotStyle = this.props.renderVertically
+    const dotStyle = this.props.orientation === Orientations.vertical
       ? styles.dotV
       : styles.dotH
 
@@ -309,21 +300,18 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   };
 
   _onMomentumScrollEnd = (e: { nativeEvent: NativeScrollEvent }) => {
-    if (this.props.renderVertically) {
-      this._onMomentumScrollEndV(e)
-    }
-    else {
-      this._onMomentumScrollEndH(e)
-    }
-  }
+    const offset = this.props.orientation === "horizontal"
+      ? e.nativeEvent.contentOffset.x
+      : e.nativeEvent.contentOffset.y;
+    const total = this.props.orientation === "horizontal"
+      ? this.state.width
+      : this.state.height
 
-  _onMomentumScrollEndH = (e: { nativeEvent: NativeScrollEvent }) => {
-    const offset = e.nativeEvent.contentOffset.x;
     // Touching very very quickly and continuous brings about
     // a variation close to - but not quite - the width.
     // That's why we round the number.
     // Also, Android phones and their weird numbers
-    const newIndex = this._rtlSafeIndex(Math.round(offset / this.state.width));
+    const newIndex = this._rtlSafeIndex(Math.round(offset / total));
     if (newIndex === this.state.activeIndex) {
       // No page change, don't do anything
       return;
@@ -331,24 +319,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     const lastIndex = this.state.activeIndex;
     this.setState({ activeIndex: newIndex });
     this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
-  };
-
-  _onMomentumScrollEndV = (e: { nativeEvent: NativeScrollEvent }) => {
-    const offset = e.nativeEvent.contentOffset.y;
-    // Touching very very quickly and continuous brings about
-    // a variation close to - but not quite - the height.
-    // That's why we round the number.
-    // Also, Android phones and their weird numbers
-    const newIndex = this._rtlSafeIndex(Math.round(offset / this.state.height));
-    if (newIndex === this.state.activeIndex) {
-      // No page change, don't do anything
-      return;
-    }
-    const lastIndex = this.state.activeIndex;
-    this.setState({ activeIndex: newIndex });
-    this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
-  };
-
+  }
 
   _onLayout = ({nativeEvent}: LayoutChangeEvent) => {
     const {width, height} = nativeEvent.layout;
@@ -358,7 +329,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       // Set new scroll position
       const func = () => {
         this.flatList?.scrollToOffset({
-          offset: this._rtlSafeIndex(this.state.activeIndex) * (this.props.renderVertically ? height : width),
+          offset: this._rtlSafeIndex(this.state.activeIndex) * (this.props.orientation === Orientations.vertical ? height : width),
           animated: false,
         });
       };
@@ -380,7 +351,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       renderItem,
       data,
       extraData,
-      renderVertically,
+      orientation,
       ...otherProps
     } = this.props;
     /* eslint-enable @typescript-eslint/no-unused-vars */
@@ -388,14 +359,14 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     // Merge component width and user-defined extraData
     const extra = mergeExtraData(extraData, this.state.width);
 
-    const flatListStyle = renderVertically ? styles.flatListV : styles.flatListH
+    const flatListStyle = orientation === Orientations.vertical ? styles.flatListV : styles.flatListH
 
     return (
       <View style={styles.flexOne}>
         <FlatList
           ref={(ref) => (this.flatList = ref as FlatList<ItemT>)}
           data={this.props.data}
-          horizontal={!renderVertically}
+          horizontal={orientation === Orientations.horizontal}
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           bounces={false}
