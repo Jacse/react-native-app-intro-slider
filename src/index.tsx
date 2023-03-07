@@ -81,6 +81,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     height: 0,
     activeIndex: 0,
   };
+  _timeout = 0;
   flatList: FlatList<ItemT> | undefined;
 
   goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
@@ -245,6 +246,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   };
 
   _onMomentumScrollEnd = (e: {nativeEvent: NativeScrollEvent}) => {
+    this._onScrollEnd(e);
+  };
+
+  _onScrollEnd = (e: {nativeEvent: NativeScrollEvent}) => {
     const offset = e.nativeEvent.contentOffset.x;
     // Touching very very quickly and continuous brings about
     // a variation close to - but not quite - the width.
@@ -258,6 +263,13 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     const lastIndex = this.state.activeIndex;
     this.setState({activeIndex: newIndex});
     this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
+  };
+
+  _onScroll = (e: {nativeEvent: NativeScrollEvent}) => {
+    if (Platform.OS === 'web') {
+      clearTimeout(this._timeout);
+      this._timeout = setTimeout(() => this._onScrollEnd(e), 150);
+    }
   };
 
   _onLayout = ({nativeEvent}: LayoutChangeEvent) => {
@@ -311,6 +323,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
           onMomentumScrollEnd={this._onMomentumScrollEnd}
           extraData={extra}
           onLayout={this._onLayout}
+          onScroll={this._onScroll}
           // make sure all slides are rendered so we can use dots to navigate to them
           initialNumToRender={data.length}
           {...otherProps}
