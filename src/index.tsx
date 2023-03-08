@@ -19,6 +19,12 @@ import mergeExtraData from './merge-extradata';
 
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
+
+export enum Orientation {
+    HORIZONTAL,
+    VERTICAL
+}
+
 type Props<ItemT> = {
   data: ItemT[];
   renderItem: (
@@ -46,6 +52,8 @@ type Props<ItemT> = {
   showPrevButton: boolean;
   showSkipButton: boolean;
   bottomButton: boolean;
+  orientation: Orientation;
+  autoPlay: boolean,
 } & FlatListProps<ItemT>;
 
 type State = {
@@ -75,6 +83,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     showPrevButton: false,
     showSkipButton: false,
     bottomButton: false,
+    orientation: Orientation.HORIZONTAL,
+    autoPlay: false
   };
   state = {
     width: 0,
@@ -82,17 +92,42 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     activeIndex: 0,
   };
   flatList: FlatList<ItemT> | undefined;
+  activeInterval: any;
+
+  componentDidMount() {
+    if (this.props.autoPlay) this.startScroll();
+  }
+
+  // Clear interval when user closes
+  componentWillUnmount() {
+    clearInterval(this.activeInterval);
+  }
+
+  startScroll() {
+    this.activeInterval = setInterval(this.scroll, 2000);
+  }
+
+  scroll = () => {
+    if (this.state.activeIndex < this.props.data.length - 1) {
+      this.goToSlide(this.state.activeIndex + 1)
+    } else {
+      clearInterval(this.activeInterval);
+    }
+  }
 
   goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
+    const sizeOfSlide = this.props.orientation === Orientation.HORIZONTAL
+        ? this.state.width
+        : this.state.height
     const prevNum = this.state.activeIndex;
-    this.setState({activeIndex: pageNum});
+    this.setState({ activeIndex: pageNum });
     this.flatList?.scrollToOffset({
-      offset: this._rtlSafeIndex(pageNum) * this.state.width,
+        offset: this._rtlSafeIndex(pageNum) * sizeOfSlide,
     });
     if (triggerOnSlideChange && this.props.onSlideChange) {
       this.props.onSlideChange(pageNum, prevNum);
     }
-  };
+  }
 
   // Get the list ref
   getListRef = () => this.flatList;
@@ -141,15 +176,22 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     name: string,
     onPress?: (e: GestureResponderEvent) => void,
   ) => {
+    const leftButtonStyle = this.props.orientation === Orientation.VERTICAL
+      ? styles.topButtonContainer
+      : styles.leftButtonContainer
+    const rightButtonStyle = this.props.orientation === Orientation.VERTICAL
+      ? styles.bottomButtonContainer
+      : styles.rightButtonContainer
     const style =
       name === 'Skip' || name === 'Prev'
-        ? styles.leftButtonContainer
-        : styles.rightButtonContainer;
+        ? leftButtonStyle
+        : rightButtonStyle;
     return (
       <View style={!this.props.bottomButton && style}>
         <TouchableOpacity
           onPress={onPress}
-          style={this.props.bottomButton && styles.flexOne}>
+          style={this.props.bottomButton && styles.flexOne}
+        >
           {content}
         </TouchableOpacity>
       </View>
@@ -177,10 +219,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   _renderDoneButton = () =>
     this.props.showDoneButton &&
     this._renderButton(
-      'Done',
-      this.props.doneLabel,
-      this.props.onDone,
-      this.props.renderDoneButton,
+        'Done',
+        this.props.doneLabel,
+        this.props.onDone,
+        this.props.renderDoneButton,
     );
 
   _renderSkipButton = () =>
@@ -206,11 +248,16 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     const primaryButton = isLastSlide
       ? this._renderDoneButton()
       : this._renderNextButton();
-
+    const containerStyle = this.props.orientation === Orientation.VERTICAL
+      ? styles.paginationContainerV
+      : styles.paginationContainerH
+    const dotsContainerStyle = this.props.orientation === Orientation.VERTICAL
+      ? styles.paginationDotsV
+      : styles.paginationDotsH
     return (
-      <View style={styles.paginationContainer}>
-        <SafeAreaView>
-          <View style={styles.paginationDots}>
+      <View style={containerStyle}>
+        <SafeAreaView style={styles.paginationSafeArea}>
+          <View style={dotsContainerStyle}>
             {this.props.data.length > 1 &&
               this.props.data.map((_, i) =>
                 this.props.dotClickEnabled ? (
@@ -244,21 +291,27 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     );
   };
 
-  _onMomentumScrollEnd = (e: {nativeEvent: NativeScrollEvent}) => {
-    const offset = e.nativeEvent.contentOffset.x;
+  _onMomentumScrollEnd = (e: { nativeEvent: NativeScrollEvent }) => {
+    const offset = this.props.orientation === Orientation.HORIZONTAL
+      ? e.nativeEvent.contentOffset.x
+      : e.nativeEvent.contentOffset.y;
+    const total = this.props.orientation === Orientation.HORIZONTAL
+      ? this.state.width
+      : this.state.height
+
     // Touching very very quickly and continuous brings about
     // a variation close to - but not quite - the width.
     // That's why we round the number.
     // Also, Android phones and their weird numbers
-    const newIndex = this._rtlSafeIndex(Math.round(offset / this.state.width));
+    const newIndex = this._rtlSafeIndex(Math.round(offset / total));
     if (newIndex === this.state.activeIndex) {
       // No page change, don't do anything
       return;
     }
     const lastIndex = this.state.activeIndex;
-    this.setState({activeIndex: newIndex});
+    this.setState({ activeIndex: newIndex });
     this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
-  };
+  }
 
   _onLayout = ({nativeEvent}: LayoutChangeEvent) => {
     const {width, height} = nativeEvent.layout;
@@ -268,7 +321,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       // Set new scroll position
       const func = () => {
         this.flatList?.scrollToOffset({
-          offset: this._rtlSafeIndex(this.state.activeIndex) * width,
+          offset: this._rtlSafeIndex(this.state.activeIndex) * (this.props.orientation === Orientation.VERTICAL ? height : width),
           animated: false,
         });
       };
@@ -290,6 +343,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       renderItem,
       data,
       extraData,
+      orientation,
       ...otherProps
     } = this.props;
     /* eslint-enable @typescript-eslint/no-unused-vars */
@@ -297,16 +351,18 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     // Merge component width and user-defined extraData
     const extra = mergeExtraData(extraData, this.state.width);
 
+    const flatListStyle = orientation === Orientation.VERTICAL ? styles.flatListV : styles.flatListH
+
     return (
       <View style={styles.flexOne}>
         <FlatList
           ref={(ref) => (this.flatList = ref as FlatList<ItemT>)}
           data={this.props.data}
-          horizontal
+          horizontal={orientation === Orientation.HORIZONTAL}
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           bounces={false}
-          style={styles.flatList}
+          style={flatListStyle}
           renderItem={this._renderItem}
           onMomentumScrollEnd={this._onMomentumScrollEnd}
           extraData={extra}
@@ -327,29 +383,49 @@ const styles = StyleSheet.create({
   flexOne: {
     flex: 1,
   },
-  flatList: {
+  flatListH: {
     flex: 1,
     flexDirection: isAndroidRTL ? 'row-reverse' : 'row',
   },
-  paginationContainer: {
+  flatListV: {
+    flex: 1,
+  },
+  paginationContainerH: {
     position: 'absolute',
     bottom: 16,
     left: 16,
     right: 16,
     justifyContent: 'center',
   },
-  paginationDots: {
+  paginationContainerV: {
+    position: 'absolute',
+    bottom: 16,
+    right: 8,
+    top: 16,
+    justifyContent: 'center',
+  },
+  paginationSafeArea: {
+    flex : 1,
+    justifyContent: "center"
+  },
+  paginationDotsH: {
     height: 16,
     margin: 16,
     flexDirection: isAndroidRTL ? 'row-reverse' : 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  dot: {
+  paginationDotsV: {
+    width: 16,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dot :{
     width: 10,
     height: 10,
     borderRadius: 5,
-    marginHorizontal: 4,
+    margin : 5
   },
   leftButtonContainer: {
     position: 'absolute',
@@ -358,6 +434,14 @@ const styles = StyleSheet.create({
   rightButtonContainer: {
     position: 'absolute',
     right: 0,
+  },
+  topButtonContainer: {
+    position: 'absolute',
+    top: 0,
+  },
+  bottomButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
   },
   bottomButton: {
     flex: 1,
