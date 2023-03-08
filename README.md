@@ -14,12 +14,17 @@ yarn add react-native-app-intro-slider
 | ---------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------ |
 | ![Basic example gif](Images/basic-example.gif) | ![showSkipButton example image](Images/skipbutton-example.jpg) | ![bottomButton example image](Images/bottomskipbutton-example.jpg) |
 
+
+`Vertical Render`                                          | `Auto Play`                                               
+| ---------------------------------------------- | -------------------------------------------------------------- 
+| ![Basic example gif](Images/vertical_render.gif) | ![showSkipButton example image](Images/autoPlay.gif) | 
+
 The component is based on FlatList so usage is very similar. Pass a data-array to AppIntroSlider along with a `renderItem`-function:
 
 ```javascript
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import AppIntroSlider from 'react-native-app-intro-slider';
+import AppIntroSlider, { Orientation } from 'react-native-app-intro-slider';
 
 const slides = [
   {
@@ -133,6 +138,7 @@ export default class App extends React.Component {
     return (
       <AppIntroSlider
         data={slides}
+        orientation={Orientation.HORIZONTAL}
         renderDoneButton={this._renderDoneButton}
         renderNextButton={this._renderNextButton}
       />
@@ -162,10 +168,12 @@ The component extends `FlatList` so all FlatList-props are valid.
 | dotStyle         | `style`    | {backgroundColor: 'rgba(0, 0, 0, .2)'}       | Style of inactive pagination dots                                                                                                                                                                |
 | dotClickEnabled  | `boolean`  | `true`                                       | Whether users can navigate using the pagination dots                                                                                                                                             |
 | activeDotStyle   | `style`    | {backgroundColor: 'rgba(255, 255, 255, .9)'} | Style of active pagination dot                                                                                                                                                                   |
+| orientation      | enum       | HORIZONTAL                                   | defines the orientation of the intro slides                                                                                                                                                                   |
 | skipLabel        | `string`   | `Skip`                                       | Custom label for Skip button                                                                                                                                                                     |
 | doneLabel        | `string`   | `Done`                                       | Custom label for Done button                                                                                                                                                                     |
 | nextLabel        | `string`   | `Next`                                       | Custom label for Next button                                                                                                                                                                     |
 | prevLabel        | `string`   | `Back`                                       | Custom label for Prev button                                                                                                                                                                     |
+| autoPlay         | `boolean`  | `false`                                      | When true slides starts playing automatically                                                                                                                                                    |
 | showSkipButton   | `boolean`  | `false`                                      | Enable to show a skip button to the left of pagination dots. When `bottomButton == true` the skip button is a small text under the full-width next button                                        |
 | showPrevButton   | `boolean`  | `false`                                      | Enable to show a previous button. If `showSkipButton` is true, the skip button will be displayed on the first page and prev button on subsequent one                                             |
 | showNextButton   | `boolean`  | `true`                                       | Disable to hide the next button                                                                                                                                                                  |

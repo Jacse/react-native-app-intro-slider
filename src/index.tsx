@@ -20,7 +20,7 @@ import mergeExtraData from './merge-extradata';
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
 
-enum Orientation {
+export enum Orientation {
     HORIZONTAL,
     VERTICAL
 }
@@ -251,19 +251,12 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     const containerStyle = this.props.orientation === Orientation.VERTICAL
       ? styles.paginationContainerV
       : styles.paginationContainerH
-    const paginationSafeArea = this.props.orientation === Orientation.VERTICAL
-      ? styles.paginationSafeAreaV
-      : styles.paginationSafeAreaH
     const dotsContainerStyle = this.props.orientation === Orientation.VERTICAL
       ? styles.paginationDotsV
       : styles.paginationDotsH
-    const dotStyle = this.props.orientation === Orientation.VERTICAL
-      ? styles.dotV
-      : styles.dotH
-
     return (
       <View style={containerStyle}>
-        <SafeAreaView style={paginationSafeArea}>
+        <SafeAreaView style={styles.paginationSafeArea}>
           <View style={dotsContainerStyle}>
             {this.props.data.length > 1 &&
               this.props.data.map((_, i) =>
@@ -271,7 +264,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
                   <TouchableOpacity
                     key={i}
                     style={[
-                      dotStyle,
+                      styles.dot,
                       this._rtlSafeIndex(i) === this.state.activeIndex
                         ? this.props.activeDotStyle
                         : this.props.dotStyle,
@@ -282,7 +275,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
                   <View
                     key={i}
                     style={[
-                      dotStyle,
+                      styles.dot,
                       this._rtlSafeIndex(i) === this.state.activeIndex
                         ? this.props.activeDotStyle
                         : this.props.dotStyle,
@@ -411,14 +404,8 @@ const styles = StyleSheet.create({
     top: 16,
     justifyContent: 'center',
   },
-  paginationSafeAreaH: {
-
-  },
-  paginationSafeAreaV: {
-    position: 'absolute',
-    right: 8,
-    bottom: 16,
-    top: 16,
+  paginationSafeArea: {
+    flex : 1,
     justifyContent: "center"
   },
   paginationDotsH: {
@@ -434,17 +421,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  dotH: {
+  dot :{
     width: 10,
     height: 10,
     borderRadius: 5,
-    marginHorizontal: 4,
-  },
-  dotV: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginVertical: 4,
+    margin : 5
   },
   leftButtonContainer: {
     position: 'absolute',
