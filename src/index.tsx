@@ -19,11 +19,10 @@ import mergeExtraData from './merge-extradata';
 
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
-type OrientationType = "horizontal" | "vertical"
 
-const Orientations = {
-  horizontal: "horizontal",
-  vertical: "vertical"
+enum Orientation {
+    HORIZONTAL,
+    VERTICAL
 }
 
 type Props<ItemT> = {
@@ -53,7 +52,7 @@ type Props<ItemT> = {
   showPrevButton: boolean;
   showSkipButton: boolean;
   bottomButton: boolean;
-  orientation: OrientationType;
+  orientation: Orientation;
   autoPlay: boolean,
 } & FlatListProps<ItemT>;
 
@@ -84,7 +83,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     showPrevButton: false,
     showSkipButton: false,
     bottomButton: false,
-    orientation: Orientations.horizontal,
+    orientation: Orientation.HORIZONTAL,
     autoPlay: false
   };
   state = {
@@ -117,7 +116,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   }
 
   goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
-    const sizeOfSlide = this.props.orientation === Orientations.horizontal
+    const sizeOfSlide = this.props.orientation === Orientation.HORIZONTAL
         ? this.state.width
         : this.state.height
     const prevNum = this.state.activeIndex;
@@ -177,10 +176,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     name: string,
     onPress?: (e: GestureResponderEvent) => void,
   ) => {
-    const leftButtonStyle = this.props.orientation === Orientations.vertical
+    const leftButtonStyle = this.props.orientation === Orientation.VERTICAL
       ? styles.topButtonContainer
       : styles.leftButtonContainer
-    const rightButtonStyle = this.props.orientation === Orientations.vertical
+    const rightButtonStyle = this.props.orientation === Orientation.VERTICAL
       ? styles.bottomButtonContainer
       : styles.rightButtonContainer
     const style =
@@ -249,16 +248,16 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     const primaryButton = isLastSlide
       ? this._renderDoneButton()
       : this._renderNextButton();
-    const containerStyle = this.props.orientation === Orientations.vertical
+    const containerStyle = this.props.orientation === Orientation.VERTICAL
       ? styles.paginationContainerV
       : styles.paginationContainerH
-    const paginationSafeArea = this.props.orientation === Orientations.vertical
+    const paginationSafeArea = this.props.orientation === Orientation.VERTICAL
       ? styles.paginationSafeAreaV
       : styles.paginationSafeAreaH
-    const dotsContainerStyle = this.props.orientation === Orientations.vertical
+    const dotsContainerStyle = this.props.orientation === Orientation.VERTICAL
       ? styles.paginationDotsV
       : styles.paginationDotsH
-    const dotStyle = this.props.orientation === Orientations.vertical
+    const dotStyle = this.props.orientation === Orientation.VERTICAL
       ? styles.dotV
       : styles.dotH
 
@@ -300,10 +299,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   };
 
   _onMomentumScrollEnd = (e: { nativeEvent: NativeScrollEvent }) => {
-    const offset = this.props.orientation === "horizontal"
+    const offset = this.props.orientation === Orientation.HORIZONTAL
       ? e.nativeEvent.contentOffset.x
       : e.nativeEvent.contentOffset.y;
-    const total = this.props.orientation === "horizontal"
+    const total = this.props.orientation === Orientation.HORIZONTAL
       ? this.state.width
       : this.state.height
 
@@ -329,7 +328,7 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       // Set new scroll position
       const func = () => {
         this.flatList?.scrollToOffset({
-          offset: this._rtlSafeIndex(this.state.activeIndex) * (this.props.orientation === Orientations.vertical ? height : width),
+          offset: this._rtlSafeIndex(this.state.activeIndex) * (this.props.orientation === Orientation.VERTICAL ? height : width),
           animated: false,
         });
       };
@@ -359,14 +358,14 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     // Merge component width and user-defined extraData
     const extra = mergeExtraData(extraData, this.state.width);
 
-    const flatListStyle = orientation === Orientations.vertical ? styles.flatListV : styles.flatListH
+    const flatListStyle = orientation === Orientation.VERTICAL ? styles.flatListV : styles.flatListH
 
     return (
       <View style={styles.flexOne}>
         <FlatList
           ref={(ref) => (this.flatList = ref as FlatList<ItemT>)}
           data={this.props.data}
-          horizontal={orientation === Orientations.horizontal}
+          horizontal={orientation === Orientation.HORIZONTAL}
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           bounces={false}
